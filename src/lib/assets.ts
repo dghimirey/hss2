@@ -46,6 +46,7 @@ const sumitraChapagain = '/images/teachers/sumitrachapagain.jpg';
 const sunitaRajali = '/images/teachers/sunitarajali.jpg';
 const topBahadur = '/images/teachers/topbahadurpun.jpg';
 const ushaSharma = '/images/teachers/ushasharma.jpg';
+const diamondghimire = '/images/teachers/diamondghimire.jpg';
 
 export const ASSETS = {
   logo,
@@ -125,7 +126,7 @@ export const ASSETS = {
     { name: 'Meghnath Sharma', img: meghnathSharma, role: 'Head Teacher', subject: 'Economics', category: 'Leadership' },
     { name: 'Prakash Acharya', img: prakashAcharya, role: 'Assist. Head Teacher', subject: 'Mathematics', category: 'Leadership' },
     { name: 'Dolaraj Sharma', img: dolarajSharma, role: 'Accountant', subject: 'Administration', category: 'Staff' },
-    { name: 'Diamond Ghimire', img: null, role: 'Computer Operator', subject: 'Information Technology', category: 'Staff' },
+    { name: 'Diamond Ghimire', img: diamondghimire, role: 'Computer Operator', subject: 'Information Technology', category: 'Staff' },
     { name: 'Sunil Chhetri', img: sunilChhetri, role: 'Librarian', subject: 'Library Sciences', category: 'Staff' },
     { name: 'Bal Krishna Upadhyaya', img: balKrishna, role: 'Office Assistant', subject: 'Administration', category: 'Staff' },
     { name: 'Ser Bahadur Saru', img: null, role: 'Office Assistant', subject: 'Administration', category: 'Staff' },
