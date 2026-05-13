@@ -7,7 +7,7 @@ const programs = [
 {
   title: 'Secondary Education',
   level: 'ECD - Grade 12',
-  desc: 'Comprehensive and student-centered education designed to build strong academic foundations, practical knowledge, creativity, leadership skills, and overall personal development for future success.',
+  desc: 'Comprehensive and student-centered education designed to build strong academic foundations and overall personal development.',
   icon: BookOpen,
   color: 'border-blue-500/20 group-hover:shadow-blue-500/20',
   curriculum: [
@@ -86,15 +86,6 @@ export default function Academics() {
             >
               Academic <span className="text-secondary">Programs</span>
             </motion.h2>
-            <motion.p
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.1 }}
-              viewport={{ once: true }}
-              className="text-slate-400"
-            >
-              We offer diverse streams designed to meet the evolving needs of the modern workforce, guided by experienced faculty members.
-            </motion.p>
           </div>
           <motion.div
             initial={{ opacity: 0, x: 30 }}
@@ -102,7 +93,6 @@ export default function Academics() {
             viewport={{ once: true }}
             className="flex gap-4"
           >
-            <div className="px-6 py-3 rounded-2xl glass font-bold">NEB Affiliated</div>
           </motion.div>
         </div>
 
