@@ -10,9 +10,22 @@ export default function Faculty() {
   const [selectedTeacher, setSelectedTeacher] = useState(null);
   const [sortBy, setSortBy] = useState('name');
 
-  // Sort faculty members
-  const sortedFaculty = useMemo(() => {
-    return [...ASSETS.teachers].sort((a, b) => {
+  // Filter faculty by category
+  const leadershipTeam = useMemo(() => {
+    return ASSETS.teachers.filter(teacher => teacher.category === 'Leadership');
+  }, []);
+
+  const teachingFaculty = useMemo(() => {
+    return ASSETS.teachers.filter(teacher => teacher.category === 'Teacher');
+  }, []);
+
+  const staffMembers = useMemo(() => {
+    return ASSETS.teachers.filter(teacher => teacher.category === 'Staff');
+  }, []);
+
+  // Sort function
+  const sortFaculty = (faculty) => {
+    return [...faculty].sort((a, b) => {
       if (sortBy === 'name') {
         return a.name.localeCompare(b.name);
       } else {
@@ -20,7 +33,7 @@ export default function Faculty() {
         return subCompare !== 0 ? subCompare : a.name.localeCompare(b.name);
       }
     });
-  }, [sortBy]);
+  };
 
   const renderTeacherCard = (teacher) => (
     <motion.div
@@ -119,7 +132,7 @@ export default function Faculty() {
           </motion.p>
         </div>
 
-        {/* Sorting Bar - Removed Filter Section */}
+        {/* Sorting Bar - No Filters */}
         <div className="flex flex-col gap-8 mb-16">
           <motion.div 
             initial={{ opacity: 0, y: 10 }}
@@ -156,17 +169,64 @@ export default function Faculty() {
           </motion.div>
         </div>
 
-        {/* Single Faculty Grid - All members together */}
-        <div className="min-h-[600px]">
+        {/* Leadership Section */}
+        {leadershipTeam.length > 0 && (
           <motion.div
+            key="leadership-section"
             layout
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mb-24"
           >
-            {sortedFaculty.map(teacher => renderTeacherCard(teacher))}
+            <div className="flex items-center gap-4 mb-8">
+              <div className="h-px flex-1 bg-linear-to-r from-transparent to-white/10" />
+              <h3 className="text-xs font-black uppercase tracking-[0.4em] text-secondary">School Leadership</h3>
+              <div className="h-px flex-1 bg-linear-to-l from-transparent to-white/10" />
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-4xl mx-auto">
+              {sortFaculty(leadershipTeam).map(leader => renderTeacherCard(leader))}
+            </div>
           </motion.div>
-        </div>
+        )}
+
+        {/* Teaching Faculty Section */}
+        {teachingFaculty.length > 0 && (
+          <motion.div
+            key="teacher-section"
+            layout
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mb-24"
+          >
+            <div className="flex items-center gap-4 mb-8">
+              <div className="h-px flex-1 bg-linear-to-r from-transparent to-white/10" />
+              <h3 className="text-xs font-black uppercase tracking-[0.4em] text-slate-400">Teaching Faculty</h3>
+              <div className="h-px flex-1 bg-linear-to-l from-transparent to-white/10" />
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8">
+              {sortFaculty(teachingFaculty).map(teacher => renderTeacherCard(teacher))}
+            </div>
+          </motion.div>
+        )}
+
+        {/* Staff Section */}
+        {staffMembers.length > 0 && (
+          <motion.div
+            key="staff-section"
+            layout
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+          >
+            <div className="flex items-center gap-4 mb-8">
+              <div className="h-px flex-1 bg-linear-to-r from-transparent to-white/10" />
+              <h3 className="text-xs font-black uppercase tracking-[0.4em] text-accent">Administrative Staff</h3>
+              <div className="h-px flex-1 bg-linear-to-l from-transparent to-white/10" />
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6">
+              {sortFaculty(staffMembers).map(staff => renderTeacherCard(staff))}
+            </div>
+          </motion.div>
+        )}
       </div>
 
       {/* Teacher Detail Modal */}
