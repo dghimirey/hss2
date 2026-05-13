@@ -4,19 +4,19 @@
  */
 
 import { lazy, Suspense } from 'react';
-import Navbar from './components/Navbar';
-import Footer from './components/Footer';
-import Hero from './sections/Hero';
+import Navbar from './components/navbar';
+import Footer from './components/footer';
+import Hero from './sections/hero';
 
 // Lazy load sections below the fold
-const About = lazy(() => import('./sections/About'));
-const Academics = lazy(() => import('./sections/Academics'));
-const Faculty = lazy(() => import('./sections/Faculty'));
-const Facilities = lazy(() => import('./sections/Facilities'));
-const Gallery = lazy(() => import('./sections/Gallery'));
-const NoticeNews = lazy(() => import('./sections/NoticeNews'));
+const About = lazy(() => import('./sections/about'));
+const Academics = lazy(() => import('./sections/academics'));
+const Faculty = lazy(() => import('./sections/faculty'));
+const Facilities = lazy(() => import('./sections/facilities'));
+const Gallery = lazy(() => import('./sections/gallery'));
+const NoticeNews = lazy(() => import('./sections/noticenews'));
 
-const Contact = lazy(() => import('./sections/Contact'));
+const Contact = lazy(() => import('./sections/contact'));
 
 function LoadingSection() {
   return (

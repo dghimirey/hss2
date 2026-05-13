@@ -1,7 +1,8 @@
 import React from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'motion/react';
 import { ArrowRight, Star, GraduationCap, Users, Trophy, Bell, MapPin, Calendar, Sparkles, Award, ChevronDown, ExternalLink } from 'lucide-react';
-import Particles from '../components/Particles';
+import Particles from '../components/particles';
+import { ASSETS } from '../lib/assets';
 
 const stats = [
   { label: 'Academic Excellence', value: '25+', icon: Star, color: 'text-secondary', description: 'Years of Legacy' },
@@ -34,9 +35,19 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="relative min-h-screen flex flex-col items-center justify-center pt-28 pb-20 px-6 overflow-hidden z-10"
+      className="relative min-h-screen flex flex-col items-center justify-center pt-28 pb-20 px-6 overflow-hidden z-10 bg-slate-950"
       onMouseMove={handleMouseMove}
     >
+      {/* Background Image with Overlay */}
+      <div className="absolute inset-0 z-0">
+        <img 
+          src={ASSETS.hero.bg} 
+          alt="School Hero" 
+          className="w-full h-full object-cover opacity-20"
+        />
+        <div className="absolute inset-0 bg-linear-to-b from-slate-950 via-slate-950/80 to-slate-950" />
+      </div>
+
       {/* Enhanced Particles Background */}
       <Particles count={60} />
 

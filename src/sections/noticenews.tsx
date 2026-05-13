@@ -109,8 +109,6 @@ export default function NoticeNews() {
                       src={item.img} 
                       alt={item.title} 
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                      referrerPolicy="no-referrer"
-                      loading="lazy"
                     />
                     <div className="absolute top-4 left-4 px-3 py-1 rounded-full bg-black/50 backdrop-blur-md text-white text-[10px] font-bold uppercase tracking-widest border border-white/10">
                       {item.category}

@@ -36,8 +36,6 @@ export default function Faculty() {
               src={teacher.img}
               alt={teacher.name}
               className="w-full h-full object-cover object-center transition-all duration-700 scale-100 group-hover:scale-105"
-              loading="lazy"
-              referrerPolicy="no-referrer"
             />
           ) : (
             <div className="flex flex-col items-center justify-center text-slate-700">
@@ -284,7 +282,6 @@ export default function Faculty() {
                     src={selectedTeacher.img}
                     alt={selectedTeacher.name}
                     className="w-full h-full object-cover object-center"
-                    referrerPolicy="no-referrer"
                   />
                 ) : (
                   <div className="flex flex-col items-center justify-center text-slate-700">

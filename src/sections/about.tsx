@@ -94,8 +94,6 @@ export default function About() {
               src={ASSETS.about.excellence}
               alt="School"
               className="relative rounded-[40px] shadow-2xl z-10 w-full border border-white/5"
-              referrerPolicy="no-referrer"
-              loading="lazy"
             />
           </motion.div>
 

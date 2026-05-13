@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { cn } from '../lib/utils';
-import logo from '../assets/logo.jpg';
+import { ASSETS } from '../lib/assets';
 
 const navLinks = [
   { name: 'Home', href: '#home' },
@@ -52,7 +52,7 @@ export default function Navbar() {
            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
          >
            <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-white/10 group-hover:border-secondary group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg shadow-black/20">
-             <img src={logo} alt="Logo" className="w-full h-full object-cover" />
+             <img src={ASSETS.logo} alt="Logo" className="w-full h-full object-cover" />
              <div className="absolute inset-0 bg-secondary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
            </div>
 

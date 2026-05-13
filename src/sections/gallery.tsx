@@ -61,8 +61,6 @@ export default function Gallery() {
                   src={item.img} 
                   alt={item.title} 
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  referrerPolicy="no-referrer"
-                  loading="lazy"
                 />
                 <div className="absolute inset-0 bg-linear-to-t from-slate-950 via-slate-950/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-8">
                   <span className="text-xs font-bold text-secondary tracking-widest uppercase mb-2">
