@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ASSETS } from '../lib/assets';
 import { cn } from '../lib/utils';
-import { Users, X, BookOpen, User as UserIcon, Award, Linkedin, Globe, Mail, Facebook, Instagram, Phone } from 'lucide-react';
+import { Users, X, BookOpen, User as UserIcon, Award, Facebook, Instagram, Phone } from 'lucide-react';
 
 export default function Faculty() {
   const [selectedTeacher, setSelectedTeacher] = useState(null);
@@ -227,24 +227,6 @@ export default function Faculty() {
                     <h2 className="text-3xl md:text-4xl font-display font-black tracking-tighter">
                       {selectedTeacher.name}
                     </h2>
-                    <div className="flex gap-2">
-                       <a 
-                        href="#" 
-                        onClick={(e) => e.preventDefault()}
-                        className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-slate-500 hover:text-secondary group/icon transition-all"
-                        title="LinkedIn"
-                      >
-                        <Linkedin className="w-4 h-4" />
-                      </a>
-                      <a 
-                        href="#" 
-                        onClick={(e) => e.preventDefault()}
-                        className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-slate-500 hover:text-accent group/icon transition-all"
-                        title="Website"
-                      >
-                        <Globe className="w-4 h-4" />
-                      </a>
-                    </div>
                   </div>
                   
                   <div className="space-y-6 mb-8">
@@ -281,7 +263,7 @@ export default function Faculty() {
                     </div>
 
                     <div className="pt-6 border-t border-white/5">
-                      <p className="text-[10px] uppercase tracking-widest text-slate-500 font-bold mb-4">Professional Connect</p>
+                      <p className="text-[10px] uppercase tracking-widest text-slate-500 font-bold mb-4">Connect On Social Media</p>
                       <div className="flex flex-wrap gap-3">
                         <a 
                           href="#" 
@@ -302,31 +284,14 @@ export default function Faculty() {
                         <a 
                           href="#" 
                           onClick={(e) => e.preventDefault()}
-                          className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-secondary hover:border-secondary/50 hover:bg-secondary/10 transition-all duration-300"
-                          title="LinkedIn"
-                        >
-                          <Linkedin className="w-5 h-5" />
-                        </a>
-                        <a 
-                          href="#" 
-                          onClick={(e) => e.preventDefault()}
                           className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-[#25D366] hover:border-[#25D366]/50 hover:bg-[#25D366]/10 transition-all duration-300"
                           title="WhatsApp"
                         >
                           <Phone className="w-5 h-5" />
                         </a>
-                        <a 
-                          href="#" 
-                          onClick={(e) => e.preventDefault()}
-                          className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-accent hover:border-accent/50 hover:bg-accent/10 transition-all duration-300"
-                          title="Email"
-                        >
-                          <Mail className="w-5 h-5" />
-                        </a>
                       </div>
                     </div>
                   </div>
-
                   <button 
                     onClick={() => setSelectedTeacher(null)}
                     className="px-8 py-4 bg-white text-slate-950 font-bold rounded-2xl shadow-xl hover:bg-slate-100 transition-all uppercase tracking-widest text-xs"
