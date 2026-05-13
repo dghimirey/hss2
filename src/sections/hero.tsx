@@ -16,35 +16,35 @@ import { ASSETS } from '../lib/assets';
 const stats = [
   {
     label: 'Years of Excellence',
-    value: '25+',
+    value: '59+',
     icon: Star,
   },
   {
     label: 'Students',
-    value: '1200+',
+    value: '1000+',
     icon: Users,
   },
   {
     label: 'Expert Teachers',
-    value: '45+',
+    value: '40+',
     icon: GraduationCap,
   },
 ];
 
 const notices = [
   {
-    title: 'Grade 11 Admission Open for Management',
-    date: 'Aug 24, 2026',
+    title: 'Admission Open for ECD to Grade 10',
+    date: 'Baisakh 15, 2083',
     tag: 'Admission',
   },
   {
-    title: 'Annual Sports Week Schedule Published',
-    date: 'Aug 22, 2026',
-    tag: 'Event',
+    title: 'Entrance exams for new comers',
+    date: 'Baisahk 25, 2083',
+    tag: 'Entrance exam',
   },
   {
-    title: 'Scholarship Examination Results Out',
-    date: 'Aug 20, 2026',
+    title: 'Congratulations for SEE graded students',
+    date: 'Baisakh 28, 2083',
     tag: 'Result',
   },
 ];
