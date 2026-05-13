@@ -10,18 +10,9 @@ export default function Faculty() {
   const [selectedTeacher, setSelectedTeacher] = useState(null);
   const [sortBy, setSortBy] = useState('name');
 
-  // Filter out Leadership, Staff, and Teacher categories
-  const facultyMembers = useMemo(() => {
-    return ASSETS.teachers.filter(teacher => 
-      teacher.category !== 'Leadership' && 
-      teacher.category !== 'Staff' && 
-      teacher.category !== 'Teacher'
-    );
-  }, []);
-
   // Sort faculty members
   const sortedFaculty = useMemo(() => {
-    return [...facultyMembers].sort((a, b) => {
+    return [...ASSETS.teachers].sort((a, b) => {
       if (sortBy === 'name') {
         return a.name.localeCompare(b.name);
       } else {
@@ -29,7 +20,7 @@ export default function Faculty() {
         return subCompare !== 0 ? subCompare : a.name.localeCompare(b.name);
       }
     });
-  }, [facultyMembers, sortBy]);
+  }, [sortBy]);
 
   const renderTeacherCard = (teacher) => (
     <motion.div
@@ -65,6 +56,16 @@ export default function Faculty() {
         </div>
         
         <div className="flex flex-col gap-1 w-full">
+          <div className="flex flex-col items-center gap-0.5 mb-1 text-[8px] font-black uppercase tracking-[0.2em]">
+            <span className={cn(
+              "px-2 py-0.5 rounded-full border",
+              teacher.category === 'Leadership' ? "text-secondary border-secondary/30 bg-secondary/10" :
+              teacher.category === 'Staff' ? "text-accent border-accent/30 bg-accent/10" :
+              "text-slate-500 border-white/10"
+            )}>
+              {teacher.category}
+            </span>
+          </div>
           <h3 className="font-bold text-base md:text-lg group-hover:text-secondary transition-colors line-clamp-1">
             {teacher.name}
           </h3>
@@ -118,7 +119,7 @@ export default function Faculty() {
           </motion.p>
         </div>
 
-        {/* Sorting Bar */}
+        {/* Sorting Bar - Removed Filter Section */}
         <div className="flex flex-col gap-8 mb-16">
           <motion.div 
             initial={{ opacity: 0, y: 10 }}
@@ -155,7 +156,7 @@ export default function Faculty() {
           </motion.div>
         </div>
 
-        {/* Faculty Grid */}
+        {/* Single Faculty Grid - All members together */}
         <div className="min-h-[600px]">
           <motion.div
             layout
@@ -165,12 +166,6 @@ export default function Faculty() {
           >
             {sortedFaculty.map(teacher => renderTeacherCard(teacher))}
           </motion.div>
-          
-          {sortedFaculty.length === 0 && (
-            <div className="text-center py-20">
-              <p className="text-slate-400">No faculty members found.</p>
-            </div>
-          )}
         </div>
       </div>
 
@@ -224,12 +219,16 @@ export default function Faculty() {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.1 }}
                 >
+                  <span className="inline-block px-4 py-1.5 bg-secondary/10 text-secondary text-xs font-bold rounded-full mb-6 border border-secondary/20 uppercase tracking-[0.2em]">
+                    {selectedTeacher.category} Member
+                  </span>
+                  
                   <div className="flex flex-wrap items-center gap-4 mb-6">
                     <h2 className="text-3xl md:text-4xl font-display font-black tracking-tighter">
                       {selectedTeacher.name}
                     </h2>
                     <div className="flex gap-2">
-                      <a 
+                       <a 
                         href="#" 
                         onClick={(e) => e.preventDefault()}
                         className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-slate-500 hover:text-secondary group/icon transition-all"
