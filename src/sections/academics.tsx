@@ -12,7 +12,7 @@ import {
 
 const programs = [
   {
-    title: 'Secondary Education',
+    title: 'General Stream',
     level: 'ECD - Grade 12',
     desc: 'Strong academic foundation with practical and extra activities.',
     icon: BookOpen,
