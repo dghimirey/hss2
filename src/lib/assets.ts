@@ -46,7 +46,7 @@ const sumitraChapagain = '/images/teachers/sumitrachapagain.jpg';
 const sunitaRajali = '/images/teachers/sunitarajali.jpg';
 const topBahadur = '/images/teachers/topbahadurpun.jpg';
 const ushaSharma = '/images/teachers/ushasharma.jpg';
-const diamondghimire = '/images/teachers/diamond.jpg';
+const diamondghimire = '/images/teachers/diamond.jpeg';
 
 export const ASSETS = {
   logo,
