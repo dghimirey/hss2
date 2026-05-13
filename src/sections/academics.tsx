@@ -1,186 +1,182 @@
-import { motion, AnimatePresence } from 'motion/react';
-import { BookOpen, Briefcase, Heart, BookText, FileDown, Monitor, X, CheckCircle2 } from 'lucide-react';
 import { useState } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
+import {
+  BookOpen,
+  Briefcase,
+  BookText,
+  Monitor,
+  FileDown,
+  X,
+  CheckCircle2,
+} from 'lucide-react';
 
 const programs = [
   {
-{
-  title: 'Secondary Education',
-  level: 'ECD - Grade 12',
-  desc: 'Comprehensive and student-centered education designed to build strong academic foundations and overall personal development.',
-  icon: BookOpen,
-  color: 'border-blue-500/20 group-hover:shadow-blue-500/20',
-  curriculum: [
-    'Compulsory English & Nepali',
-    'Compulsory Mathematics',
-    'Science & Technology',
-    'Social Studies & Creative Arts',
-    'Computer Science & Digital Learning',
-    'Health, Population & Physical Education',
-    'Elective I: Optional Mathematics',
-    'Elective II: Computer Science / Health',
-    'Project-Based & Practical Learning Activities',
-    'Sports, Leadership & Extra-Curricular Programs'
-  ]
-},
+    title: 'Secondary Education',
+    level: 'ECD - Grade 12',
+    desc: 'Strong academic foundation with practical and extra activities.',
+    icon: BookOpen,
+    curriculum: [
+      'English & Nepali',
+      'Mathematics',
+      'Science & Technology',
+      'Social Studies',
+      'Computer Science',
+      'Health & Physical Education',
+      'Optional Mathematics',
+      'Project-Based Learning',
+      'Sports & Extra Activities',
+    ],
+  },
   {
     title: 'Computer Engineering',
     level: 'Grade 9 - 12',
-    desc: 'Specialized technical stream focusing on software development, hardware, and networking.',
+    desc: 'Technical education focused on programming and networking.',
     icon: Monitor,
-    color: 'border-purple-500/20 group-hover:shadow-purple-500/20',
     curriculum: [
-      'Basic Electronics & Circuitry',
       'Computer Fundamentals',
-      'Digital Logic Systems',
-      'C & Python Programming',
-      'Computer Networking & IoT',
-      'Web Technology & Databases'
-    ]
+      'Programming',
+      'Digital Logic',
+      'Networking',
+      'Web Development',
+      'Database Systems',
+    ],
   },
   {
     title: '+2 Management',
     level: 'Grade 11 - 12',
-    desc: 'Empowering future business leaders with Accountancy, Economics, and Business Studies.',
+    desc: 'Business and management education for future leaders.',
     icon: Briefcase,
-    color: 'border-cyan-500/20 group-hover:shadow-cyan-500/20',
     curriculum: [
-      'Compulsory English & Nepali',
-      'Principles of Accounting',
-      'Business Studies / Economics',
+      'Accounting',
+      'Economics',
+      'Business Studies',
       'Computer Science',
       'Business Mathematics',
-      'Marketing & Finance Concepts'
-    ]
+      'Marketing & Finance',
+    ],
   },
   {
     title: '+2 Education',
     level: 'Grade 11 - 12',
-    desc: 'Shaping future educators with English, Nepali, and Pedagogical excellence.',
+    desc: 'Training future teachers and education professionals.',
     icon: BookText,
-    color: 'border-cyan-500/20 group-hover:shadow-cyan-500/20',
     curriculum: [
-      'Psychology & Human Development',
-      'Instructional Pedagogy',
-      'Nepali/English Specialization',
-      'Education & Development',
+      'Psychology',
+      'Pedagogy',
+      'English & Nepali',
       'Classroom Management',
-      'Curriculum & Evaluation'
-    ]
-  }
+      'Curriculum Design',
+      'Teaching Practice',
+    ],
+  },
 ];
 
 export default function Academics() {
-  const [selectedProgram, setSelectedProgram] = useState<typeof programs[number] | null>(null);
+  const [selectedProgram, setSelectedProgram] = useState(null);
 
   return (
-    <section id="academics" className="py-24 bg-white/[0.02]">
+    <section id="academics" className="py-20 bg-slate-950 text-white">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
-          <div className="max-w-2xl">
-            <motion.h2
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="text-4xl md:text-5xl font-display font-black mb-6 tracking-tighter"
-            >
-              Academic <span className="text-secondary">Programs</span>
-            </motion.h2>
-          </div>
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="flex gap-4"
-          >
-          </motion.div>
+        {/* Heading */}
+        <div className="mb-14">
+          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+            Academic Programs
+          </h2>
+
+          <p className="text-slate-400 max-w-2xl">
+            Explore our academic streams and curriculum designed for quality education and student growth.
+          </p>
         </div>
 
+        {/* Cards */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {programs.map((program, i) => (
+          {programs.map((program, index) => (
             <motion.div
-              key={program.title}
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ delay: i * 0.1 }}
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className={`group p-8 rounded-[32px] glass border transition-all duration-500 cursor-default hover:shadow-2xl hover:border-secondary/50 ${program.color}`}
+              transition={{ delay: index * 0.1 }}
+              className="bg-white/5 border border-white/10 rounded-3xl p-6 hover:border-cyan-400 transition-all"
             >
-              <div className="w-14 h-14 rounded-2xl glass flex items-center justify-center mb-6 group-hover:scale-110 transition-transform bg-white/5">
-                <program.icon className="w-7 h-7 text-secondary" />
+              <div className="w-14 h-14 rounded-2xl bg-cyan-500/10 flex items-center justify-center mb-5">
+                <program.icon className="w-7 h-7 text-cyan-400" />
               </div>
-              <span className="text-xs font-bold text-secondary tracking-widest uppercase block mb-2">
+
+              <span className="text-xs uppercase tracking-widest text-cyan-400 font-bold">
                 {program.level}
               </span>
-              <h3 className="text-xl font-bold mb-4">{program.title}</h3>
-              <p className="text-sm text-slate-400 leading-relaxed mb-6">
+
+              <h3 className="text-2xl font-bold mt-2 mb-3">
+                {program.title}
+              </h3>
+
+              <p className="text-slate-400 text-sm mb-6">
                 {program.desc}
               </p>
-              <button 
-                onClick={(e) => { e.preventDefault(); setSelectedProgram(program); }}
-                className="text-sm font-bold flex items-center gap-2 group-hover:gap-3 transition-all hover:text-secondary group/btn"
+
+              <button
+                onClick={() => setSelectedProgram(program)}
+                className="flex items-center gap-2 text-sm font-semibold text-cyan-400 hover:gap-3 transition-all"
               >
-                View Curriculum 
-                <FileDown className="w-4 h-4 text-secondary/70 group-hover/btn:text-secondary transition-colors" />
-                <div className="w-8 h-[1px] bg-secondary/50 group-hover:w-12 transition-all" />
+                View Curriculum
+                <FileDown className="w-4 h-4" />
               </button>
             </motion.div>
           ))}
         </div>
       </div>
 
-      {/* Curriculum Modal */}
+      {/* Modal */}
       <AnimatePresence>
         {selectedProgram && (
-          <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-slate-950/90 backdrop-blur-xl">
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-5">
             <motion.div
-              initial={{ opacity: 0, scale: 0.9, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9, y: 20 }}
-              className="relative w-full max-w-2xl bg-slate-900 border border-white/10 rounded-[32px] p-8 md:p-12 overflow-hidden shadow-2xl"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              className="w-full max-w-2xl bg-slate-900 rounded-3xl p-8 border border-white/10 relative"
             >
+              {/* Close */}
               <button
                 onClick={() => setSelectedProgram(null)}
-                className="absolute top-6 right-6 p-2 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 transition-colors"
+                className="absolute top-5 right-5 p-2 rounded-full bg-white/10 hover:bg-white/20"
               >
-                <X className="w-6 h-6" />
+                <X className="w-5 h-5" />
               </button>
 
+              {/* Header */}
               <div className="flex items-center gap-4 mb-8">
-                <div className="w-12 h-12 rounded-xl bg-secondary/20 flex items-center justify-center">
-                  <selectedProgram.icon className="w-6 h-6 text-secondary" />
+                <div className="w-14 h-14 rounded-2xl bg-cyan-500/10 flex items-center justify-center">
+                  <selectedProgram.icon className="w-7 h-7 text-cyan-400" />
                 </div>
+
                 <div>
-                  <h3 className="text-2xl font-display font-black tracking-tighter">{selectedProgram.title}</h3>
-                  <p className="text-xs font-bold text-secondary tracking-widest uppercase">{selectedProgram.level}</p>
+                  <h3 className="text-3xl font-bold">
+                    {selectedProgram.title}
+                  </h3>
+
+                  <p className="text-cyan-400 text-sm font-semibold uppercase tracking-wider">
+                    {selectedProgram.level}
+                  </p>
                 </div>
               </div>
 
-              <div className="space-y-6">
-                <p className="text-slate-400 text-sm leading-relaxed">
-                  Below are the core modules and learning areas focused within the <span className="text-white font-bold">{selectedProgram.title}</span> stream.
-                </p>
+              {/* Curriculum */}
+              <div className="grid md:grid-cols-2 gap-4">
+                {selectedProgram.curriculum.map((item, index) => (
+                  <div
+                    key={index}
+                    className="flex items-center gap-3 bg-white/5 border border-white/5 rounded-xl p-3"
+                  >
+                    <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0" />
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                  {selectedProgram.curriculum.map((item, idx) => (
-                    <motion.div
-                      key={idx}
-                      initial={{ opacity: 0, x: -10 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: idx * 0.05 }}
-                      className="flex items-center gap-3 p-3 rounded-xl bg-white/[0.03] border border-white/5"
-                    >
-                      <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
-                      <span className="text-sm font-medium text-slate-300">{item}</span>
-                    </motion.div>
-                  ))}
-                </div>
-
-                <div className="pt-6 border-t border-white/5">
-                  <p className="text-[10px] uppercase tracking-widest text-slate-500 text-center">
-                    Detailed PDF Syllabus available soon for download
-                  </p>
-                </div>
+                    <span className="text-sm text-slate-300">
+                      {item}
+                    </span>
+                  </div>
+                ))}
               </div>
             </motion.div>
           </div>
