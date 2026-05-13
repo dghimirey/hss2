@@ -228,48 +228,9 @@ export default function Hero() {
                 </div>
               ))}
             </div>
-
-            {/* Footer */}
-            <div className="mt-6 pt-5 border-t border-white/5 flex items-center justify-between text-xs text-slate-500">
-              <span>Updated Today</span>
-
-              <span>2 New Notices</span>
-            </div>
           </div>
         </motion.div>
       </div>
-
-      {/* Scroll Indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
-      >
-        <button
-          onClick={() =>
-            document
-              .getElementById('about')
-              ?.scrollIntoView({ behavior: 'smooth' })
-          }
-          className="flex flex-col items-center gap-2 text-slate-400 hover:text-cyan-400 transition"
-        >
-          <span className="text-xs uppercase tracking-[0.2em]">
-            Explore
-          </span>
-
-          <div className="w-6 h-10 rounded-full border border-white/15 flex justify-center pt-2">
-            <motion.div
-              animate={{ y: [0, 8, 0] }}
-              transition={{
-                duration: 1.5,
-                repeat: Infinity,
-              }}
-              className="w-1 h-2 rounded-full bg-cyan-400"
-            />
-          </div>
-        </button>
-      </motion.div>
     </section>
   );
 }
