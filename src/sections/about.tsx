@@ -111,16 +111,16 @@ export default function About() {
             <div className="space-y-8">
               {[
                 {
-                  title: 'Good Teaching',
-                  desc: 'Teachers use simple and modern teaching methods.'
+                  title: 'Academics',
+                  desc: 'Teachers use simple, practical, and modern teaching methods that make learning easier, more interactive, and engaging for every student.'
                 },
                 {
-                  title: 'Student Activities',
-                  desc: 'Students can join sports, ECA, and different programs.'
+                  title: 'ExtraCurricular Activities',
+                  desc: 'Students are encouraged to excel not only in academics but also in sports and a wide range of extracurricular activities.'
                 },
                 {
                   title: 'Safe Environment',
-                  desc: 'The school provides a friendly and safe learning environment.'
+                  desc: 'The school provides a safe, friendly, and supportive learning environment where students feel comfortable, respected, and motivated to grow academically and personally.'
                 }
               ].map((item, i) => (
                 <div key={item.title} className="flex gap-6 group">
