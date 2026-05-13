@@ -4,19 +4,19 @@ import { ASSETS } from '../lib/assets';
 
 const values = [
   {
-    title: 'Our History',
+    title: 'History',
     desc: 'Haraiya Secondary School has been providing quality education to students for many years.',
     icon: Landmark,
     color: 'from-blue-500 to-cyan-500'
   },
   {
-    title: 'Our Mission',
+    title: 'Mission',
     desc: 'Our mission is to help students learn, grow, and build a bright future.',
     icon: Target,
     color: 'from-cyan-500 to-blue-600'
   },
   {
-    title: 'Our Vision',
+    title: 'Vision',
     desc: 'We want to create skilled, confident, and responsible students for the future.',
     icon: Eye,
     color: 'from-cyan-600 to-blue-400'
@@ -46,7 +46,7 @@ export default function About() {
             transition={{ delay: 0.1 }}
             className="text-slate-400 max-w-2xl mx-auto"
           >
-            HSS Rupandehi is focused on quality education, discipline, and overall student development.
+            Haraiya Secondary School is focused on quality education, discipline, and overall student development.
           </motion.p>
         </div>
 
