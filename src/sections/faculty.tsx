@@ -1,8 +1,3 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ASSETS } from '../lib/assets';
@@ -10,14 +5,11 @@ import { cn } from '../lib/utils';
 import { Users, X, BookOpen, User as UserIcon, Award, SortAsc, LayoutGrid, Linkedin, Globe, Mail, Facebook, Instagram, Phone } from 'lucide-react';
 
 type SortOption = 'name' | 'subject';
-type CategoryOption = 'All' | 'Leadership' | 'Staff' | 'Teacher';
 
 export default function Faculty() {
   const [selectedTeacher, setSelectedTeacher] = useState<typeof ASSETS.teachers[number] | null>(null);
   const [sortBy, setSortBy] = useState<SortOption>('name');
   const [filterCategory, setFilterCategory] = useState<CategoryOption>('All');
-
-  const categories: CategoryOption[] = ['All', 'Leadership', 'Staff', 'Teacher'];
 
   const renderTeacherCard = (teacher: typeof ASSETS.teachers[number]) => (
     <motion.div
