@@ -1,39 +1,16 @@
-import { useState, useMemo } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ASSETS } from '../lib/assets';
 import { cn } from '../lib/utils';
-import { Users, X, BookOpen, User as UserIcon, Award, SortAsc, LayoutGrid, Linkedin, Globe, Mail, Facebook, Instagram, Phone } from 'lucide-react';
-
-type SortOption = 'name' | 'subject';
+import { Users, X, BookOpen, User as UserIcon, Award, Linkedin, Globe, Mail, Facebook, Instagram, Phone } from 'lucide-react';
 
 export default function Faculty() {
   const [selectedTeacher, setSelectedTeacher] = useState(null);
-  const [sortBy, setSortBy] = useState('name');
 
   // Filter faculty by category
-  const leadershipTeam = useMemo(() => {
-    return ASSETS.teachers.filter(teacher => teacher.category === 'Leadership');
-  }, []);
-
-  const teachingFaculty = useMemo(() => {
-    return ASSETS.teachers.filter(teacher => teacher.category === 'Teacher');
-  }, []);
-
-  const staffMembers = useMemo(() => {
-    return ASSETS.teachers.filter(teacher => teacher.category === 'Staff');
-  }, []);
-
-  // Sort function
-  const sortFaculty = (faculty) => {
-    return [...faculty].sort((a, b) => {
-      if (sortBy === 'name') {
-        return a.name.localeCompare(b.name);
-      } else {
-        const subCompare = a.subject.localeCompare(b.subject);
-        return subCompare !== 0 ? subCompare : a.name.localeCompare(b.name);
-      }
-    });
-  };
+  const leadershipTeam = ASSETS.teachers.filter(teacher => teacher.category === 'Leadership');
+  const teachingFaculty = ASSETS.teachers.filter(teacher => teacher.category === 'Teacher');
+  const staffMembers = ASSETS.teachers.filter(teacher => teacher.category === 'Staff');
 
   const renderTeacherCard = (teacher) => (
     <motion.div
@@ -132,43 +109,6 @@ export default function Faculty() {
           </motion.p>
         </div>
 
-        {/* Sorting Bar - No Filters */}
-        <div className="flex flex-col gap-8 mb-16">
-          <motion.div 
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="flex flex-wrap items-center justify-center gap-4"
-          >
-            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-500 mr-2">Sort By:</span>
-            <div className="flex items-center gap-2 p-1.5 bg-white/5 border border-white/10 rounded-2xl backdrop-blur-sm">
-              <button
-                onClick={() => setSortBy('name')}
-                className={cn(
-                  "flex items-center gap-2 px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all",
-                  sortBy === 'name'
-                    ? "bg-secondary text-white shadow-lg"
-                    : "text-slate-500 hover:text-white hover:bg-white/5"
-                )}
-              >
-                <SortAsc className="w-4 h-4" />
-                Name
-              </button>
-              <button
-                onClick={() => setSortBy('subject')}
-                className={cn(
-                  "flex items-center gap-2 px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all",
-                  sortBy === 'subject'
-                    ? "bg-secondary text-white shadow-lg"
-                    : "text-slate-500 hover:text-white hover:bg-white/5"
-                )}
-              >
-                <LayoutGrid className="w-4 h-4" />
-                Subject
-              </button>
-            </div>
-          </motion.div>
-        </div>
-
         {/* Leadership Section */}
         {leadershipTeam.length > 0 && (
           <motion.div
@@ -184,7 +124,7 @@ export default function Faculty() {
               <div className="h-px flex-1 bg-linear-to-l from-transparent to-white/10" />
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-4xl mx-auto">
-              {sortFaculty(leadershipTeam).map(leader => renderTeacherCard(leader))}
+              {leadershipTeam.map(leader => renderTeacherCard(leader))}
             </div>
           </motion.div>
         )}
@@ -204,7 +144,7 @@ export default function Faculty() {
               <div className="h-px flex-1 bg-linear-to-l from-transparent to-white/10" />
             </div>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8">
-              {sortFaculty(teachingFaculty).map(teacher => renderTeacherCard(teacher))}
+              {teachingFaculty.map(teacher => renderTeacherCard(teacher))}
             </div>
           </motion.div>
         )}
@@ -223,7 +163,7 @@ export default function Faculty() {
               <div className="h-px flex-1 bg-linear-to-l from-transparent to-white/10" />
             </div>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6">
-              {sortFaculty(staffMembers).map(staff => renderTeacherCard(staff))}
+              {staffMembers.map(staff => renderTeacherCard(staff))}
             </div>
           </motion.div>
         )}
