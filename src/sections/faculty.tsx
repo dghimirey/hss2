@@ -7,11 +7,31 @@ import { Users, X, BookOpen, User as UserIcon, Award, SortAsc, LayoutGrid, Linke
 type SortOption = 'name' | 'subject';
 
 export default function Faculty() {
-  const [selectedTeacher, setSelectedTeacher] = useState<typeof ASSETS.teachers[number] | null>(null);
-  const [sortBy, setSortBy] = useState<SortOption>('name');
-  const [filterCategory, setFilterCategory] = useState<CategoryOption>('All');
+  const [selectedTeacher, setSelectedTeacher] = useState(null);
+  const [sortBy, setSortBy] = useState('name');
 
-  const renderTeacherCard = (teacher: typeof ASSETS.teachers[number]) => (
+  // Filter out Leadership, Staff, and Teacher categories
+  const facultyMembers = useMemo(() => {
+    return ASSETS.teachers.filter(teacher => 
+      teacher.category !== 'Leadership' && 
+      teacher.category !== 'Staff' && 
+      teacher.category !== 'Teacher'
+    );
+  }, []);
+
+  // Sort faculty members
+  const sortedFaculty = useMemo(() => {
+    return [...facultyMembers].sort((a, b) => {
+      if (sortBy === 'name') {
+        return a.name.localeCompare(b.name);
+      } else {
+        const subCompare = a.subject.localeCompare(b.subject);
+        return subCompare !== 0 ? subCompare : a.name.localeCompare(b.name);
+      }
+    });
+  }, [facultyMembers, sortBy]);
+
+  const renderTeacherCard = (teacher) => (
     <motion.div
       key={teacher.name}
       layout
@@ -45,16 +65,6 @@ export default function Faculty() {
         </div>
         
         <div className="flex flex-col gap-1 w-full">
-          <div className="flex flex-col items-center gap-0.5 mb-1 text-[8px] font-black uppercase tracking-[0.2em]">
-            <span className={cn(
-              "px-2 py-0.5 rounded-full border",
-              teacher.category === 'Leadership' ? "text-secondary border-secondary/30 bg-secondary/10" :
-              teacher.category === 'Staff' ? "text-accent border-accent/30 bg-accent/10" :
-              "text-slate-500 border-white/10"
-            )}>
-              {teacher.category}
-            </span>
-          </div>
           <h3 className="font-bold text-base md:text-lg group-hover:text-secondary transition-colors line-clamp-1">
             {teacher.name}
           </h3>
@@ -108,28 +118,8 @@ export default function Faculty() {
           </motion.p>
         </div>
 
-        {/* Filters and Sorting Bar */}
+        {/* Sorting Bar */}
         <div className="flex flex-col gap-8 mb-16">
-          <div className="flex flex-wrap items-center justify-center gap-4">
-            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-500 mr-2">Filter By:</span>
-            <div className="flex flex-wrap justify-center gap-2 p-1.5 bg-white/5 border border-white/10 rounded-2xl backdrop-blur-sm">
-              {categories.map((cat) => (
-                <button
-                  key={cat}
-                  onClick={() => setFilterCategory(cat)}
-                  className={cn(
-                    "px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all",
-                    filterCategory === cat
-                      ? "bg-secondary text-white shadow-lg"
-                      : "text-slate-500 hover:text-white hover:bg-white/5"
-                  )}
-                >
-                  {cat}
-                </button>
-              ))}
-            </div>
-          </div>
-
           <motion.div 
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -165,83 +155,26 @@ export default function Faculty() {
           </motion.div>
         </div>
 
-        {/* Dynamic Grid Sections */}
+        {/* Faculty Grid */}
         <div className="min-h-[600px]">
-          <AnimatePresence mode="popLayout">
-            {filterCategory === 'All' || filterCategory === 'Leadership' ? (
-              <motion.div
-                key="leadership-section"
-                layout
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                className="mb-24"
-              >
-                <div className="flex items-center gap-4 mb-8">
-                  <div className="h-px flex-1 bg-linear-to-r from-transparent to-white/10" />
-                  <h3 className="text-xs font-black uppercase tracking-[0.4em] text-secondary">School Leadership</h3>
-                  <div className="h-px flex-1 bg-linear-to-l from-transparent to-white/10" />
-                </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-4xl mx-auto">
-                  {ASSETS.teachers.filter(t => t.category === 'Leadership').map(leader => renderTeacherCard(leader))}
-                </div>
-              </motion.div>
-            ) : null}
-
-            {filterCategory === 'All' || filterCategory === 'Teacher' ? (
-              <motion.div
-                key="teacher-section"
-                layout
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                className="mb-24"
-              >
-                <div className="flex items-center gap-4 mb-8">
-                  <div className="h-px flex-1 bg-linear-to-r from-transparent to-white/10" />
-                  <h3 className="text-xs font-black uppercase tracking-[0.4em] text-slate-400">Teaching Faculty</h3>
-                  <div className="h-px flex-1 bg-linear-to-l from-transparent to-white/10" />
-                </div>
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8">
-                  {ASSETS.teachers
-                    .filter(t => t.category === 'Teacher')
-                    .sort((a, b) => {
-                      if (sortBy === 'name') return a.name.localeCompare(b.name);
-                      const subComp = a.subject.localeCompare(b.subject);
-                      return subComp !== 0 ? subComp : a.name.localeCompare(b.name);
-                    })
-                    .map(teacher => renderTeacherCard(teacher))
-                  }
-                </div>
-              </motion.div>
-            ) : null}
-
-            {filterCategory === 'All' || filterCategory === 'Staff' ? (
-              <motion.div
-                key="staff-section"
-                layout
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-              >
-                <div className="flex items-center gap-4 mb-8">
-                  <div className="h-px flex-1 bg-linear-to-r from-transparent to-white/10" />
-                  <h3 className="text-xs font-black uppercase tracking-[0.4em] text-accent">Administrative Staff</h3>
-                  <div className="h-px flex-1 bg-linear-to-l from-transparent to-white/10" />
-                </div>
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6">
-                  {ASSETS.teachers
-                    .filter(t => t.category === 'Staff')
-                    .sort((a, b) => a.name.localeCompare(b.name))
-                    .map(staff => renderTeacherCard(staff))}
-                </div>
-              </motion.div>
-            ) : null}
-          </AnimatePresence>
+          <motion.div
+            layout
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8"
+          >
+            {sortedFaculty.map(teacher => renderTeacherCard(teacher))}
+          </motion.div>
+          
+          {sortedFaculty.length === 0 && (
+            <div className="text-center py-20">
+              <p className="text-slate-400">No faculty members found.</p>
+            </div>
+          )}
         </div>
       </div>
 
-      {/* Teacher Detail Modal (Mostly unchanged but checking for null img) */}
+      {/* Teacher Detail Modal */}
       <AnimatePresence>
         {selectedTeacher && (
           <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-12">
@@ -291,16 +224,12 @@ export default function Faculty() {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.1 }}
                 >
-                  <span className="inline-block px-4 py-1.5 bg-secondary/10 text-secondary text-xs font-bold rounded-full mb-6 border border-secondary/20 uppercase tracking-[0.2em]">
-                    {selectedTeacher.category} Member
-                  </span>
-                  
                   <div className="flex flex-wrap items-center gap-4 mb-6">
                     <h2 className="text-3xl md:text-4xl font-display font-black tracking-tighter">
                       {selectedTeacher.name}
                     </h2>
                     <div className="flex gap-2">
-                       <a 
+                      <a 
                         href="#" 
                         onClick={(e) => e.preventDefault()}
                         className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-slate-500 hover:text-secondary group/icon transition-all"
@@ -414,4 +343,3 @@ export default function Faculty() {
     </section>
   );
 }
-
