@@ -4,20 +4,25 @@ import { useState } from 'react';
 
 const programs = [
   {
-    title: 'Secondary Education',
-    level: 'Grade 9 - 10',
-    desc: 'Comprehensive SEE preparation with focus on core subjects, science, and computer literacy.',
-    icon: BookOpen,
-    color: 'border-blue-500/20 group-hover:shadow-blue-500/20',
-    curriculum: [
-      'Compulsory English & Nepali',
-      'Compulsory Mathematics',
-      'Science & Technology',
-      'Social Studies & Creative Arts',
-      'Elective I: Optional Mathematics',
-      'Elective II: Computer Science / Health'
-    ]
-  },
+{
+  title: 'Secondary Education',
+  level: 'ECD - Grade 12',
+  desc: 'Comprehensive and student-centered education designed to build strong academic foundations, practical knowledge, creativity, leadership skills, and overall personal development for future success.',
+  icon: BookOpen,
+  color: 'border-blue-500/20 group-hover:shadow-blue-500/20',
+  curriculum: [
+    'Compulsory English & Nepali',
+    'Compulsory Mathematics',
+    'Science & Technology',
+    'Social Studies & Creative Arts',
+    'Computer Science & Digital Learning',
+    'Health, Population & Physical Education',
+    'Elective I: Optional Mathematics',
+    'Elective II: Computer Science / Health',
+    'Project-Based & Practical Learning Activities',
+    'Sports, Leadership & Extra-Curricular Programs'
+  ]
+},
   {
     title: 'Computer Engineering',
     level: 'Grade 9 - 12',
