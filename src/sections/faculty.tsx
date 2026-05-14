@@ -12,7 +12,7 @@ const levelOrder = {
   'Head Teacher': 1,
   'Assist. Head Teacher': 2,
   'Co-Ordinator (9-12 General)': 3,
-  'Co-Ordinator (9-12 Tech)': 4,
+  'Co-ordinator (9-12 Tech)': 4,
   'Co-Ordinator (9-10 General)': 5,
   'Co-ordinator (Secondary Level)': 6,
   'Co-Ordinator (Primary Level)': 7,
