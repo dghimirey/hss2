@@ -29,8 +29,7 @@ export default function Facilities() {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             className="text-slate-400 max-w-2xl mx-auto"
-          >
-            Our campus is equipped with cutting-edge technology and modern spaces that facilitate both structured learning and creative exploration.
+          >Haraiya Secondary School has well-equipped buildings with CCTV cameras and projector-connected classrooms. The school also has a large playground and enough open space to support both quality learning and creative activities for students.
           </motion.p>
         </div>
 
@@ -58,16 +57,17 @@ export default function Facilities() {
           
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
-              <h3 className="text-3xl font-display font-bold mb-6">Innovative Learning Spaces</h3>
+              <h3 className="text-3xl font-display font-bold mb-6">Well equipped Classrooms</h3>
               <p className="text-slate-400 mb-8 leading-relaxed">
-                Every classroom is a hub of innovation. We utilize high-speed internet, smart boards, and collaborative furniture to create a dynamic educational experience that far exceeds the standard curriculum.
+                Every classroom is designed to support modern and effective learning. Classrooms are equipped with comfortable desk benches, a podium, CCTV for safety, whiteboards, and student-friendly furniture to create an active and engaging learning environment.
+
               </p>
               <div className="space-y-4">
                 {[
-                  'Fiber Optic Campus-wide Wi-Fi',
-                  'Interactive Digital Whiteboards',
-                  'Air-Conditioned Multimedia Halls',
-                  'Advanced Biotech and Physics Labs'
+                  'cctv-equipped classrooms and school premises',
+'quality whiteboards and projector-supported technical classes',
+'well-installed fans for a comfortable learning environment',
+'well-equipped computer, biology, physics, and chemistry laboratories'
                 ].map((item) => (
                   <div key={item} className="flex items-center gap-3">
                     <div className="w-5 h-5 rounded-full bg-secondary/20 flex items-center justify-center">
