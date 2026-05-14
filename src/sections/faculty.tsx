@@ -8,19 +8,19 @@ export default function Faculty() {
   const [selectedTeacher, setSelectedTeacher] = useState(null);
 
   // Define the desired order for teacher levels
-  const levelOrder = {
-    'Head Teacher': 1,
-    'Assist. Head Teacher': 2,
-    'Co-Ordinator (Primary Level)': 7,
-    'Co-ordinator (Secondary Level)': 6,
-    'Co-Ordinator (9-12 Tech)': 4,
-    'Co-Ordinator (9-12 General)': 3,
-    'Co-Ordinator (9-10 General)': 5,
-    'Secondary Level': 8,
-    'Lower Secondary Level': 9,
-    'Primary Level': 10,
-    'ECD Facilitator': 11
-  };
+const levelOrder = {
+  'Head Teacher': 1,
+  'Assist. Head Teacher': 2,
+  'Co-Ordinator (9-12 General)': 3,
+  'Co-Ordinator (9-12 Tech)': 4,
+  'Co-Ordinator (9-10 General)': 5,
+  'Co-ordinator (Secondary Level)': 6,
+  'Co-Ordinator (Primary Level)': 7,
+  'Secondary Level': 8,
+  'Lower Secondary Level': 9,
+  'Primary Level': 10,
+  'ECD Facilitator': 11
+};
 
   // Sorting function to order teachers by their role level
   const sortTeachersByLevel = (teachers) => {
