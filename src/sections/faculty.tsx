@@ -95,18 +95,8 @@ export default function Faculty() {
             viewport={{ once: true }}
             className="text-4xl md:text-5xl font-display font-black mb-6 tracking-tighter uppercase"
           >
-            School <span className="text-secondary">Community</span> & Faculty
+            Teachers <span className="text-secondary"></span> & Staffs
           </motion.h2>
-          
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            viewport={{ once: true }}
-            className="text-slate-400 max-w-2xl leading-relaxed"
-          >
-            Our dedicated team working together to provide an environment of academic excellence and holistic development.
-          </motion.p>
         </div>
 
         {/* Leadership Section */}
@@ -120,7 +110,7 @@ export default function Faculty() {
           >
             <div className="flex items-center gap-4 mb-8">
               <div className="h-px flex-1 bg-linear-to-r from-transparent to-white/10" />
-              <h3 className="text-xs font-black uppercase tracking-[0.4em] text-secondary">School Leadership</h3>
+              <h3 className="text-xs font-black uppercase tracking-[0.4em] text-secondary">Head Teachers</h3>
               <div className="h-px flex-1 bg-linear-to-l from-transparent to-white/10" />
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-4xl mx-auto">
@@ -140,7 +130,7 @@ export default function Faculty() {
           >
             <div className="flex items-center gap-4 mb-8">
               <div className="h-px flex-1 bg-linear-to-r from-transparent to-white/10" />
-              <h3 className="text-xs font-black uppercase tracking-[0.4em] text-slate-400">Teaching Faculty</h3>
+              <h3 className="text-xs font-black uppercase tracking-[0.4em] text-slate-400">Teachers</h3>
               <div className="h-px flex-1 bg-linear-to-l from-transparent to-white/10" />
             </div>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8">
@@ -159,7 +149,7 @@ export default function Faculty() {
           >
             <div className="flex items-center gap-4 mb-8">
               <div className="h-px flex-1 bg-linear-to-r from-transparent to-white/10" />
-              <h3 className="text-xs font-black uppercase tracking-[0.4em] text-accent">Administrative Staff</h3>
+              <h3 className="text-xs font-black uppercase tracking-[0.4em] text-accent">Administrative Staffs</h3>
               <div className="h-px flex-1 bg-linear-to-l from-transparent to-white/10" />
             </div>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6">
@@ -296,7 +286,7 @@ export default function Faculty() {
                     onClick={() => setSelectedTeacher(null)}
                     className="px-8 py-4 bg-white text-slate-950 font-bold rounded-2xl shadow-xl hover:bg-slate-100 transition-all uppercase tracking-widest text-xs"
                   >
-                    Return to Faculty
+                    Return
                   </button>
                 </motion.div>
               </div>
