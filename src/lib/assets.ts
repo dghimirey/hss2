@@ -140,7 +140,7 @@ teachers: [
     { name: 'Bishnu KC', img: bishnuKC, role: 'ECD Facilitator', subject: 'All Subjects', category: 'Teacher' },
     { name: 'Chhabilal', img: chhabilal, role: 'Co-ordinator (Secondary Level)', subject: 'Science', category: 'Teacher' },
     { name: 'Dinesh Sharma', img: dineshSharma, role: 'Lower Secondary Level', subject: 'Assist. Computer Instructor', category: 'Teacher' },
-    { name: 'Durga Prasad Sharma', img: durgaPrasad, role: 'Co-ordinator (9-12 Tech)', subject: 'Assist. Computer Instructor;', category: 'Teacher' },
+    { name: 'Durga Prasad Sharma', img: durgaPrasad, role: 'Co-ordinator (9-12 Tech)', subject: 'Assist. Computer Instructor', category: 'Teacher' },
     { name: 'Gun Bahadur Pun', img: gunBahadur, role: 'Lower Secondary Level', subject: 'Mathematics', category: 'Teacher' },
     { name: 'Kaladhar Dhakal', img: kaladharDhakal, role: 'Secondary Level', subject: 'Nepali', category: 'Teacher' },
     { name: 'Khadga Bahadur Chhetri', img: khadgaBahadur, role: 'Primary Level', subject: 'Nepali', category: 'Teacher' },
