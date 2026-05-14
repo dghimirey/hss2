@@ -2,32 +2,58 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ASSETS } from '../lib/assets';
 import { cn } from '../lib/utils';
-import { Users, X, BookOpen, User as UserIcon, Award, Facebook, Instagram, Phone } from 'lucide-react';
+import { Users, X, BookOpen, User as UserIcon, Award, Facebook, Instagram, Phone, ChevronDown, ChevronUp } from 'lucide-react';
 
 export default function Faculty() {
   const [selectedTeacher, setSelectedTeacher] = useState(null);
+  const [expandedSubcategories, setExpandedSubcategories] = useState({});
 
   // Define the desired order for teacher levels
   const levelOrder = {
-    'Secondary Level': 1,
-    'Lower Secondary': 2,
-    'Primary': 3,
-    'ECD Facilitator': 4
+    'Head Teacher': 1,
+    'Assist. Head Teacher': 2,
+    'Secondary Level': 3,
+    'Lower Secondary Level': 4,
+    'Primary Level': 5,
+    'ECD Facilitator': 6
   };
 
-  // Sorting function to order teachers by their level
+  // Sorting function to order teachers by their role level
   const sortTeachersByLevel = (teachers) => {
     return [...teachers].sort((a, b) => {
-      const levelA = levelOrder[a.role] || 999; // Use 'role' or 'subject' field as needed
+      const levelA = levelOrder[a.role] || 999;
       const levelB = levelOrder[b.role] || 999;
       return levelA - levelB;
     });
   };
 
-  // Filter and sort faculty by category
-  const leadershipTeam = ASSETS.teachers.filter(teacher => teacher.category === 'Leadership');
-  const teachingFaculty = sortTeachersByLevel(ASSETS.teachers.filter(teacher => teacher.category === 'Teacher'));
+  // Group teachers by category and subcategory
+  const getGroupedTeachers = () => {
+    const teachers = ASSETS.teachers.filter(teacher => teacher.category === 'Teacher');
+    const leadership = teachers.filter(t => t.subCategory === 'Leadership');
+    const computerInstructors = teachers.filter(t => t.subCategory === 'Computer Instructor');
+    const coordinators = teachers.filter(t => t.subCategory === 'Co-coordinator');
+    const regularTeachers = teachers.filter(t => !t.subCategory);
+    
+    return {
+      leadership: sortTeachersByLevel(leadership),
+      computerInstructors: sortTeachersByLevel(computerInstructors),
+      coordinators: sortTeachersByLevel(coordinators),
+      regularTeachers: sortTeachersByLevel(regularTeachers)
+    };
+  };
+
+  // Filter other categories
   const staffMembers = ASSETS.teachers.filter(teacher => teacher.category === 'Staff');
+
+  const groupedTeachers = getGroupedTeachers();
+
+  const toggleSubcategory = (subcategory) => {
+    setExpandedSubcategories(prev => ({
+      ...prev,
+      [subcategory]: !prev[subcategory]
+    }));
+  };
 
   const renderTeacherCard = (teacher) => (
     <motion.div
@@ -66,11 +92,13 @@ export default function Faculty() {
           <div className="flex flex-col items-center gap-0.5 mb-1 text-[8px] font-black uppercase tracking-[0.2em]">
             <span className={cn(
               "px-2 py-0.5 rounded-full border",
-              teacher.category === 'Leadership' ? "text-secondary border-secondary/30 bg-secondary/10" :
+              teacher.subCategory === 'Leadership' ? "text-amber-500 border-amber-500/30 bg-amber-500/10" :
+              teacher.subCategory === 'Computer Instructor' ? "text-emerald-500 border-emerald-500/30 bg-emerald-500/10" :
+              teacher.subCategory === 'Co-coordinator' ? "text-purple-500 border-purple-500/30 bg-purple-500/10" :
               teacher.category === 'Staff' ? "text-accent border-accent/30 bg-accent/10" :
               "text-slate-500 border-white/10"
             )}>
-              {teacher.category}
+              {teacher.subCategory || teacher.role}
             </span>
           </div>
           <h3 className="font-bold text-base md:text-lg group-hover:text-secondary transition-colors line-clamp-1">
@@ -88,6 +116,57 @@ export default function Faculty() {
       </div>
     </motion.div>
   );
+
+  const renderTeacherSection = (title, teachers, icon, subcategoryKey = null) => {
+    if (teachers.length === 0) return null;
+    
+    const isExpanded = subcategoryKey ? expandedSubcategories[subcategoryKey] : true;
+    
+    return (
+      <motion.div
+        key={title}
+        layout
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="mb-16"
+      >
+        <div 
+          className="flex items-center gap-4 mb-6 cursor-pointer group"
+          onClick={() => subcategoryKey && toggleSubcategory(subcategoryKey)}
+        >
+          <div className="h-px flex-1 bg-linear-to-r from-transparent to-white/10" />
+          <div className="flex items-center gap-3">
+            {icon}
+            <h3 className="text-xs font-black uppercase tracking-[0.4em] text-slate-400 group-hover:text-secondary transition-colors">
+              {title}
+            </h3>
+            {subcategoryKey && (
+              <button className="p-1 rounded-full bg-white/5 group-hover:bg-white/10 transition-colors">
+                {isExpanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+              </button>
+            )}
+          </div>
+          <div className="h-px flex-1 bg-linear-to-l from-transparent to-white/10" />
+        </div>
+        
+        <AnimatePresence>
+          {isExpanded && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3 }}
+              className="overflow-hidden"
+            >
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8">
+                {teachers.map(teacher => renderTeacherCard(teacher))}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </motion.div>
+    );
+  };
 
   return (
     <section id="faculty" className="section-padding relative overflow-hidden bg-slate-950">
@@ -112,49 +191,61 @@ export default function Faculty() {
             viewport={{ once: true }}
             className="text-4xl md:text-5xl font-display font-black mb-6 tracking-tighter uppercase"
           >
-            Teachers <span className="text-secondary"></span> & Staffs
+            Our <span className="text-secondary">Faculty</span> & Staff
           </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="text-slate-400 max-w-2xl text-sm md:text-base"
+          >
+            Meet our dedicated team of educators and administrators committed to excellence in education
+          </motion.p>
         </div>
 
-        {/* Leadership Section */}
-        {leadershipTeam.length > 0 && (
-          <motion.div
-            key="leadership-section"
-            layout
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="mb-24"
-          >
-            <div className="flex items-center gap-4 mb-8">
-              <div className="h-px flex-1 bg-linear-to-r from-transparent to-white/10" />
-              <h3 className="text-xs font-black uppercase tracking-[0.4em] text-secondary">Head Teachers</h3>
-              <div className="h-px flex-1 bg-linear-to-l from-transparent to-white/10" />
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-4xl mx-auto">
-              {leadershipTeam.map(leader => renderTeacherCard(leader))}
-            </div>
-          </motion.div>
-        )}
-
-        {/* Teaching Faculty Section - Now Sorted by Level */}
-        {teachingFaculty.length > 0 && (
-          <motion.div
-            key="teacher-section"
-            layout
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="mb-24"
-          >
-            <div className="flex items-center gap-4 mb-8">
-              <div className="h-px flex-1 bg-linear-to-r from-transparent to-white/10" />
-              <h3 className="text-xs font-black uppercase tracking-[0.4em] text-slate-400">Teachers</h3>
-              <div className="h-px flex-1 bg-linear-to-l from-transparent to-white/10" />
-            </div>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8">
-              {teachingFaculty.map(teacher => renderTeacherCard(teacher))}
-            </div>
-          </motion.div>
-        )}
+        {/* Teachers Section with Subcategories */}
+        <div className="mb-16">
+          <div className="flex items-center gap-4 mb-8">
+            <div className="h-px flex-1 bg-linear-to-r from-transparent to-white/10" />
+            <h3 className="text-sm font-black uppercase tracking-[0.4em] text-secondary">
+              Teaching Faculty
+            </h3>
+            <div className="h-px flex-1 bg-linear-to-l from-transparent to-white/10" />
+          </div>
+          
+          {/* Leadership Subcategory */}
+          {renderTeacherSection(
+            'Leadership Team', 
+            groupedTeachers.leadership, 
+            <Award className="w-4 h-4 text-amber-500" />,
+            'leadership'
+          )}
+          
+          {/* Computer Instructors Subcategory */}
+          {renderTeacherSection(
+            'Computer Instructors', 
+            groupedTeachers.computerInstructors, 
+            <BookOpen className="w-4 h-4 text-emerald-500" />,
+            'computer-instructors'
+          )}
+          
+          {/* Coordinators Subcategory */}
+          {renderTeacherSection(
+            'Academic Coordinators', 
+            groupedTeachers.coordinators, 
+            <Award className="w-4 h-4 text-purple-500" />,
+            'coordinators'
+          )}
+          
+          {/* Regular Teachers Subcategory */}
+          {renderTeacherSection(
+            'Teaching Staff', 
+            groupedTeachers.regularTeachers, 
+            <UserIcon className="w-4 h-4 text-slate-400" />,
+            'regular-teachers'
+          )}
+        </div>
 
         {/* Staff Section */}
         {staffMembers.length > 0 && (
@@ -166,7 +257,7 @@ export default function Faculty() {
           >
             <div className="flex items-center gap-4 mb-8">
               <div className="h-px flex-1 bg-linear-to-r from-transparent to-white/10" />
-              <h3 className="text-xs font-black uppercase tracking-[0.4em] text-accent">Administrative Staffs</h3>
+              <h3 className="text-xs font-black uppercase tracking-[0.4em] text-accent">Administrative Staff</h3>
               <div className="h-px flex-1 bg-linear-to-l from-transparent to-white/10" />
             </div>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6">
@@ -227,7 +318,7 @@ export default function Faculty() {
                   transition={{ delay: 0.1 }}
                 >
                   <span className="inline-block px-4 py-1.5 bg-secondary/10 text-secondary text-xs font-bold rounded-full mb-6 border border-secondary/20 uppercase tracking-[0.2em]">
-                    {selectedTeacher.category} Member
+                    {selectedTeacher.subCategory || selectedTeacher.role}
                   </span>
                   
                   <div className="flex flex-wrap items-center gap-4 mb-6">
@@ -253,7 +344,7 @@ export default function Faculty() {
                       </div>
                       <div>
                         <p className="text-[10px] uppercase tracking-widest text-slate-500 font-bold">Specialization</p>
-                        <p className="font-bold text-sm tracking-tight">{selectedTeacher.subject} Department</p>
+                        <p className="font-bold text-sm tracking-tight">{selectedTeacher.subject}</p>
                       </div>
                     </div>
 
@@ -264,7 +355,8 @@ export default function Faculty() {
                       <div>
                         <p className="text-[10px] uppercase tracking-widest text-slate-500 font-bold">Biography</p>
                         <p className="font-medium text-sm text-slate-400 leading-relaxed max-w-sm">
-                          Dedicated to fostering an environment of academic excellence and supporting students' personal growth through innovative teaching methodologies.
+                          Dedicated {selectedTeacher.role.toLowerCase()} specializing in {selectedTeacher.subject.toLowerCase()}, 
+                          committed to fostering academic excellence and supporting student growth through innovative teaching methodologies.
                         </p>
                       </div>
                     </div>
@@ -303,7 +395,7 @@ export default function Faculty() {
                     onClick={() => setSelectedTeacher(null)}
                     className="px-8 py-4 bg-white text-slate-950 font-bold rounded-2xl shadow-xl hover:bg-slate-100 transition-all uppercase tracking-widest text-xs"
                   >
-                    Return
+                    Close Profile
                   </button>
                 </motion.div>
               </div>
