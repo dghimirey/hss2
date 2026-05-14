@@ -2,12 +2,12 @@ import { motion } from 'motion/react';
 import { Library, FlaskConical, Laptop, Trophy, MonitorPlay, Users2, HeartPulse } from 'lucide-react';
 
 const facilities = [
-  { name: 'Modern Library', icon: Library, color: 'text-blue-400' },
-  { name: 'Science Labs', icon: FlaskConical, color: 'text-cyan-400' },
-  { name: 'Computer Center', icon: Laptop, color: 'text-sky-400' },
-  { name: 'Sports Complex', icon: Trophy, color: 'text-blue-500' },
-  { name: 'Multimedia Rooms', icon: MonitorPlay, color: 'text-cyan-500' },
-  { name: 'ECA Programs', icon: Users2, color: 'text-blue-400' },
+  { name: 'Library', icon: Library, color: 'text-blue-400' },
+  { name: 'Computer Labs', icon: Laptop, color: 'text-cyan-400' },
+  { name: 'Physics Chemistry and Biology Labs', icon: FlaskConical, color: 'text-sky-400' },
+  { name: 'Sports', icon: Trophy, color: 'text-blue-500' },
+  { name: 'SmartBoard and Projector', icon: MonitorPlay, color: 'text-cyan-500' },
+  { name: 'ExtraCurricular Programs', icon: Users2, color: 'text-blue-400' },
   { name: 'Student Counseling', icon: HeartPulse, color: 'text-sky-500' },
 ];
 
