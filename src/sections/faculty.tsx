@@ -7,9 +7,26 @@ import { Users, X, BookOpen, User as UserIcon, Award, Facebook, Instagram, Phone
 export default function Faculty() {
   const [selectedTeacher, setSelectedTeacher] = useState(null);
 
-  // Filter faculty by category
+  // Define the desired order for teacher levels
+  const levelOrder = {
+    'Secondary Level': 1,
+    'Lower Secondary': 2,
+    'Primary': 3,
+    'ECD Facilitator': 4
+  };
+
+  // Sorting function to order teachers by their level
+  const sortTeachersByLevel = (teachers) => {
+    return [...teachers].sort((a, b) => {
+      const levelA = levelOrder[a.role] || 999; // Use 'role' or 'subject' field as needed
+      const levelB = levelOrder[b.role] || 999;
+      return levelA - levelB;
+    });
+  };
+
+  // Filter and sort faculty by category
   const leadershipTeam = ASSETS.teachers.filter(teacher => teacher.category === 'Leadership');
-  const teachingFaculty = ASSETS.teachers.filter(teacher => teacher.category === 'Teacher');
+  const teachingFaculty = sortTeachersByLevel(ASSETS.teachers.filter(teacher => teacher.category === 'Teacher'));
   const staffMembers = ASSETS.teachers.filter(teacher => teacher.category === 'Staff');
 
   const renderTeacherCard = (teacher) => (
@@ -119,7 +136,7 @@ export default function Faculty() {
           </motion.div>
         )}
 
-        {/* Teaching Faculty Section */}
+        {/* Teaching Faculty Section - Now Sorted by Level */}
         {teachingFaculty.length > 0 && (
           <motion.div
             key="teacher-section"
