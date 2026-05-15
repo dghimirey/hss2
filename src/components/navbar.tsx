@@ -15,6 +15,11 @@ const navLinks = [
   { name: 'Contact', href: '#contact' },
 ];
 
+// Enroll Now click handler
+const handleEnrollClick = () => {
+  window.location.href = 'https://bikash20.com.np/?i=1';
+};
+
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -82,12 +87,12 @@ export default function Navbar() {
 
            {/* Explore Button */}
            <div className="flex items-center gap-4 border-l border-white/10 pl-8">
-             <a
-               href="#contact"
-               className="inline-flex items-center justify-center px-6 py-2 bg-secondary text-white rounded-xl text-[10px] font-black uppercase tracking-widest shadow-xl hover:bg-white hover:text-slate-950 focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2 focus:ring-offset-slate-950 transition-all duration-300"
+             <button
+               onClick={handleEnrollClick}
+               className="inline-flex items-center justify-center px-6 py-2 bg-secondary text-white rounded-xl text-[10px] font-black uppercase tracking-widest shadow-xl hover:bg-white hover:text-slate-950 focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2 focus:ring-offset-slate-950 transition-all duration-300 cursor-pointer"
              >
                Enroll Now
-             </a>
+             </button>
            </div>
          </div>
 
@@ -131,13 +136,15 @@ export default function Navbar() {
               ))}
 
               {/* Mobile CTA */}
-              <a
-                href="#contact"
-                onClick={() => setIsOpen(false)}
-                className="w-full mt-4 py-4 bg-secondary text-white rounded-2xl text-[10px] font-black uppercase tracking-widest shadow-lg text-center inline-flex items-center justify-center hover:scale-[1.02] active:scale-95 transition-all duration-300"
+              <button
+                onClick={() => {
+                  setIsOpen(false);
+                  handleEnrollClick();
+                }}
+                className="w-full mt-4 py-4 bg-secondary text-white rounded-2xl text-[10px] font-black uppercase tracking-widest shadow-lg text-center inline-flex items-center justify-center hover:scale-[1.02] active:scale-95 transition-all duration-300 cursor-pointer"
               >
                 Enroll Now
-              </a>
+              </button>
             </div>
           </motion.div>
         )}
