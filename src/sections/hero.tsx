@@ -9,6 +9,8 @@ import {
   Calendar,
   MapPin,
   ExternalLink,
+  ChevronDown,
+  ChevronUp,
 } from 'lucide-react';
 
 import { ASSETS } from '../lib/assets';
@@ -34,6 +36,7 @@ const stats = [
 export default function Hero() {
   const [notices, setNotices] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [showAllNotices, setShowAllNotices] = useState(false);
 
   useEffect(() => {
     const fetchNotices = async () => {
@@ -49,15 +52,17 @@ export default function Hero() {
         const rows = csvText.trim().split('\n');
         
         // Skip header row and map data
-        const formattedNotices = rows.slice(1).map(row => {
-          // Simple CSV parsing (works for basic text without commas)
-          const columns = row.split(',');
-          return {
-            title: columns[0]?.replace(/^"|"$/g, '').trim() || '',
-            date: columns[1]?.replace(/^"|"$/g, '').trim() || '',
-            tag: columns[2]?.replace(/^"|"$/g, '').trim() || '',
-          };
-        }).filter(notice => notice.title); // Remove empty rows
+        const formattedNotices = rows.slice(1)
+          .map(row => {
+            // Simple CSV parsing
+            const columns = row.split(',');
+            return {
+              title: columns[0]?.replace(/^"|"$/g, '').trim() || '',
+              date: columns[1]?.replace(/^"|"$/g, '').trim() || '',
+              tag: columns[2]?.replace(/^"|"$/g, '').trim() || '',
+            };
+          })
+          .filter(notice => notice.title); // Remove empty rows
         
         setNotices(formattedNotices);
         setLoading(false);
@@ -73,6 +78,10 @@ export default function Hero() {
     const interval = setInterval(fetchNotices, 300000);
     return () => clearInterval(interval);
   }, []);
+
+  // Get notices to display based on showAllNotices state
+  const displayedNotices = showAllNotices ? notices : notices.slice(0, 4);
+  const hasMoreNotices = notices.length > 4;
 
   return (
     <section
@@ -208,16 +217,13 @@ export default function Hero() {
                   </p>
                 </div>
               </div>
-              <button className="text-sm text-cyan-400 hover:text-cyan-300 transition">
-                View All
-              </button>
             </div>
 
             {/* Notice List */}
             <div className="space-y-4">
               {loading ? (
                 // Loading skeletons
-                [...Array(3)].map((_, i) => (
+                [...Array(4)].map((_, i) => (
                   <div key={i} className="p-5 rounded-2xl border border-white/5 bg-white/[0.03] animate-pulse">
                     <div className="flex items-center justify-between mb-3">
                       <div className="w-20 h-5 bg-white/10 rounded-full"></div>
@@ -227,25 +233,50 @@ export default function Hero() {
                   </div>
                 ))
               ) : (
-                notices.map((notice, index) => (
-                  <div
-                    key={index}
-                    className="p-5 rounded-2xl border border-white/5 bg-white/[0.03] hover:bg-white/[0.05] transition-all duration-300"
-                  >
-                    <div className="flex items-center justify-between mb-3">
-                      <span className="text-[11px] uppercase tracking-wider px-2 py-1 rounded-full bg-cyan-500/10 text-cyan-300">
-                        {notice.tag}
-                      </span>
-                      <div className="flex items-center gap-1 text-xs text-slate-500">
-                        <Calendar className="w-3 h-3" />
-                        {notice.date}
+                <>
+                  {displayedNotices.map((notice, index) => (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.3, delay: index * 0.05 }}
+                      className="p-5 rounded-2xl border border-white/5 bg-white/[0.03] hover:bg-white/[0.05] transition-all duration-300"
+                    >
+                      <div className="flex items-center justify-between mb-3">
+                        <span className="text-[11px] uppercase tracking-wider px-2 py-1 rounded-full bg-cyan-500/10 text-cyan-300">
+                          {notice.tag}
+                        </span>
+                        <div className="flex items-center gap-1 text-xs text-slate-500">
+                          <Calendar className="w-3 h-3" />
+                          {notice.date}
+                        </div>
                       </div>
-                    </div>
-                    <p className="text-slate-200 font-medium leading-relaxed">
-                      {notice.title}
-                    </p>
-                  </div>
-                ))
+                      <p className="text-slate-200 font-medium leading-relaxed">
+                        {notice.title}
+                      </p>
+                    </motion.div>
+                  ))}
+                  
+                  {/* Show More / Show Less Button */}
+                  {hasMoreNotices && (
+                    <button
+                      onClick={() => setShowAllNotices(!showAllNotices)}
+                      className="w-full mt-4 py-3 rounded-xl border border-white/10 bg-white/[0.03] hover:bg-white/[0.08] transition-all duration-300 flex items-center justify-center gap-2 text-cyan-400 hover:text-cyan-300 text-sm font-medium"
+                    >
+                      {showAllNotices ? (
+                        <>
+                          <ChevronUp className="w-4 h-4" />
+                          Show Less
+                        </>
+                      ) : (
+                        <>
+                          <ChevronDown className="w-4 h-4" />
+                          Show More ({notices.length - 4} more)
+                        </>
+                      )}
+                    </button>
+                  )}
+                </>
               )}
             </div>
           </div>
