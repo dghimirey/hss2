@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Search, Plus } from 'lucide-react';
 import { ASSETS } from '../lib/assets';
 
-const categories = ['All', 'Events', 'Sports', 'Academics', 'Campus'];
+const categories = ['All', 'Events', 'Sports', 'Academics', 'School'];
 
 export default function Gallery() {
   const [activeCategory, setActiveCategory] = useState('All');
