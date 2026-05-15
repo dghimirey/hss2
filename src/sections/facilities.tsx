@@ -1,6 +1,6 @@
 import { motion } from 'motion/react';
 import { Library, FlaskConical, Laptop, Trophy, MonitorPlay, Users2, HeartPulse } from 'lucide-react';
-import { classroom } from '../lib/assets';
+import { ASSETS } from '../lib/assets';
 
 const facilities = [
   { name: 'Library', icon: Library, color: 'text-blue-400' },
