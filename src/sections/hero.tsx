@@ -60,7 +60,7 @@ export default function Hero() {
         <img
           src={ASSETS.hero.bg}
           alt="School"
-          className="w-full h-full object-cover opacity-50"
+          className="w-full h-full object-cover opacity-80"
         />
 
         <div className="absolute inset-0 bg-slate-950/85" />
