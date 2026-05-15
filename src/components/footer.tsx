@@ -113,9 +113,8 @@ export default function Footer() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
         >
-          Designed & Developed with{" "}
-          <span className="text-red-500 inline-block animate-pulse">❤</span>
-          {" "}by{" "}
+          Designed & Developed
+          by{" "}
           <motion.a 
             href="https://www.facebook.com/diamondghimire4" 
             target="_blank" 
@@ -140,7 +139,6 @@ export default function Footer() {
             className="inline-block ml-1"
             whileHover={{ rotate: [0, -10, 10, -5, 5, 0], transition: { duration: 0.5 } }}
           >
-            <span className="text-secondary/60 hover:text-secondary transition-colors cursor-pointer">✨</span>
           </motion.div>
         </motion.div>
       </motion.div>
