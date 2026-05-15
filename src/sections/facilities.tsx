@@ -89,7 +89,7 @@ export default function Facilities() {
             
             <div className="h-96 rounded-[32px] overflow-hidden relative shadow-2xl">
               <img 
-                src={ASSETS.classroom}
+                src={ASSETS.about.classroom}
                 alt="Classroom" 
                 className="w-full h-full object-cover"
                 loading="lazy"
