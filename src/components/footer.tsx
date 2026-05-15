@@ -13,9 +13,9 @@ export default function Footer() {
 
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-10 relative z-10">
         <div className="flex flex-col md:flex-row items-center md:items-start gap-x-10 gap-y-4 uppercase tracking-[0.25em] text-center md:text-left">
-          <span className="text-white/90">Rupandehi, Nepal</span>
+          <span className="text-white/90">Kanchan -3, Rupandehi, Nepal</span>
           <span className="hover:text-secondary transition-all cursor-pointer">+977 9857024716</span>
-          <span className="hover:text-secondary transition-all cursor-pointer">info@haraiya.edu.np</span>
+          <span className="hover:text-secondary transition-all cursor-pointer">haraiyasecondary1@gmail.com</span>
         </div>
         
         <div className="flex gap-10 uppercase tracking-[0.4em]">
@@ -42,8 +42,8 @@ export default function Footer() {
       </div>
       
       <div className="mt-16 text-center text-[9px] text-slate-600 uppercase tracking-[0.5em] font-medium border-t border-white/5 pt-8">
-        © {new Date().getFullYear()} <span className="text-slate-500">HSS - Haraiya Secondary School.</span>
-        <div className="mt-2 text-slate-700">Designed & Developed by Diamond Ghimire</div>
+        © {new Date().getFullYear()} <span className="text-slate-500">Haraiya Secondary School.</span>
+        <div className="mt-2 text-slate-400">Designed & Developed by Diamond Ghimire</div>
       </div>
     </footer>
   );
