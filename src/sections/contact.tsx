@@ -26,24 +26,19 @@ export default function Contact() {
     setStatus({ type: '', message: '' });
 
     try {
-      // Create mailto link
       const mailtoLink = `mailto:haraiyasecondary1@gmail.com?subject=${encodeURIComponent(formData.subject)}&body=${encodeURIComponent(
         `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
       )}`;
       
-      // Open email client
       window.location.href = mailtoLink;
       
-      // Show success message
       setStatus({ 
         type: 'success', 
         message: '✓ Email client opened! Please send the message to complete.' 
       });
       
-      // Clear form after successful submission
       setFormData({ name: '', email: '', subject: '', message: '' });
       
-      // Clear status after 5 seconds
       setTimeout(() => setStatus({ type: '', message: '' }), 5000);
     } catch (error) {
       setStatus({ 
@@ -54,6 +49,30 @@ export default function Contact() {
       setIsSending(false);
     }
   };
+
+  const contactInfo = [
+    { 
+      icon: MapPin, 
+      title: 'Our Location', 
+      detail: 'Kanchan-3, Rupandehi, Nepal',
+      action: null,
+      linkText: 'View on Map'
+    },
+    { 
+      icon: Phone, 
+      title: 'Direct Line', 
+      detail: '+977-9857024716',
+      action: 'tel:+9779857024716',
+      linkText: 'Call Now'
+    },
+    { 
+      icon: Mail, 
+      title: 'Official Email', 
+      detail: 'haraiyasecondary1@gmail.com',
+      action: 'mailto:haraiyasecondary1@gmail.com',
+      linkText: 'Send Email'
+    }
+  ];
 
   return (
     <section id="contact" className="py-24 bg-gradient-to-b from-slate-950 to-black">
@@ -66,43 +85,60 @@ export default function Contact() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-4xl md:text-5xl font-display font-black mb-8 tracking-tighter">
-              Let's <span className="text-secondary text-transparent bg-clip-text bg-gradient-to-r from-secondary to-yellow-500">Connect</span>
+            <h2 className="text-4xl md:text-5xl font-display font-black mb-6 tracking-tighter">
+              Let's <span className="text-transparent bg-clip-text bg-gradient-to-r from-secondary to-yellow-500">Connect</span>
             </h2>
             <p className="text-slate-400 mb-12 leading-relaxed max-w-lg">
               Have questions or want to visit our school? Reach out to us through any of these channels.
             </p>
 
-            <div className="space-y-8">
-              {[
-                { icon: MapPin, title: 'Our Location', detail: 'Kanchan-3, Rupandehi, Nepal', action: null },
-                { icon: Phone, title: 'Direct Line', detail: '+977-9857024716', action: 'tel:+9779857024716' },
-                { icon: Mail, title: 'Official Email', detail: 'haraiyasecondary1@gmail.com', action: 'mailto:haraiyasecondary1@gmail.com' }
-              ].map((item) => (
-                <a 
-                  key={item.title} 
-                  href={item.action || '#'}
-                  className={`flex gap-6 group ${item.action ? 'cursor-pointer' : 'cursor-default'} ${item.action ? 'hover:translate-x-2' : ''} transition-transform`}
-                  onClick={(e) => {
-                    if (!item.action && item.title === 'Our Location') {
-                      e.preventDefault();
-                      const mapSection = document.getElementById('map');
-                      if (mapSection) mapSection.scrollIntoView({ behavior: 'smooth' });
-                    }
-                  }}
-                >
-                  <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-white/10 to-white/5 flex items-center justify-center text-secondary group-hover:bg-gradient-to-br group-hover:from-secondary group-hover:to-yellow-500 group-hover:text-black transition-all shadow-lg border border-secondary/20">
-                    <item.icon className="w-6 h-6" />
+            <div className="space-y-6">
+              {contactInfo.map((item) => (
+                <div key={item.title} className="group">
+                  <div className="flex items-start gap-5">
+                    {/* Icon Container - Fixed width for alignment */}
+                    <div className="flex-shrink-0">
+                      <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-white/10 to-white/5 flex items-center justify-center text-secondary group-hover:bg-gradient-to-br group-hover:from-secondary group-hover:to-yellow-500 group-hover:text-black transition-all shadow-lg border border-secondary/20">
+                        <item.icon className="w-6 h-6" />
+                      </div>
+                    </div>
+                    
+                    {/* Content Container - Takes remaining space */}
+                    <div className="flex-1 pt-1">
+                      <h4 className="font-bold text-xs text-slate-500 uppercase tracking-[0.2em] mb-1">
+                        {item.title}
+                      </h4>
+                      <p className="text-lg font-bold tracking-tight text-white mb-2">
+                        {item.detail}
+                      </p>
+                      {item.action && (
+                        <a 
+                          href={item.action}
+                          className="text-sm text-secondary hover:text-yellow-500 transition-colors inline-flex items-center gap-1 group/link"
+                        >
+                          <span>{item.linkText}</span>
+                          <span className="transform group-hover/link:translate-x-1 transition-transform">→</span>
+                        </a>
+                      )}
+                      {!item.action && (
+                        <button 
+                          onClick={() => {
+                            const mapSection = document.getElementById('map');
+                            if (mapSection) mapSection.scrollIntoView({ behavior: 'smooth' });
+                          }}
+                          className="text-sm text-secondary hover:text-yellow-500 transition-colors inline-flex items-center gap-1 group/link"
+                        >
+                          <span>{item.linkText}</span>
+                          <span className="transform group-hover/link:translate-x-1 transition-transform">→</span>
+                        </button>
+                      )}
+                    </div>
                   </div>
-                  <div>
-                    <h4 className="font-bold text-xs text-slate-500 uppercase tracking-[0.2em] mb-1">{item.title}</h4>
-                    <p className="text-lg font-bold tracking-tight text-white">{item.detail}</p>
-                  </div>
-                </a>
+                </div>
               ))}
             </div>
 
-            <div className="mt-12">
+            <div className="mt-12 pt-8 border-t border-white/10">
               <h4 className="font-bold text-xs text-slate-500 uppercase tracking-[0.2em] mb-6">Digital Presence</h4>
               <div className="flex gap-4">
                 <motion.a
