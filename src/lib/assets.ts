@@ -85,12 +85,12 @@ export const ASSETS = {
     {
       img: sports2,
       title: 'Student Activities',
-      category: 'Campus'
+      category: 'School'
     },
     {
       img: school,
       title: 'Haraiya Secondary School',
-      category: 'Campus'
+      category: 'School'
     }
   ],
 
