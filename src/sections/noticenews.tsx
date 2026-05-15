@@ -1,47 +1,59 @@
 import { motion } from 'motion/react';
-import { Calendar, Bell, ArrowRight, ExternalLink } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Calendar, Bell, ArrowRight, ExternalLink, ChevronDown, ChevronUp } from 'lucide-react';
 import { ASSETS } from '../lib/assets';
 
-const notices = [
-  {
-    id: 1,
-    title: 'Grade 11 & 12 Final Examination Schedule Released',
-    date: 'May 15, 2026',
-    category: 'Examination',
-    desc: 'The annual examination for Grade 11 & 12 is scheduled to start from June 5th. Students are requested to collect their admit cards.'
-  },
-  {
-    id: 2,
-    title: 'Scholarship Application Open for Academic Year 2026',
-    date: 'May 10, 2026',
-    category: 'Admission',
-    desc: 'Applications for merit-based and need-based scholarships are now open. Deadline for submission is May 30th.'
-  },
-  {
-    id: 3,
-    title: 'Inter-School Sports Meet 2026 Registration',
-    date: 'May 05, 2026',
-    category: 'Events',
-    desc: 'Students interested in participating in the regional sports meet should register their names at the sports department.'
-  }
-];
-
-const news = [
-  {
-    id: 1,
-    title: 'Haraiya Students Win National Science Olympiad',
-    category: 'Achievement',
-    img: 'https://images.unsplash.com/photo-1576443422079-568853b05be5?q=80&w=2070&auto=format&fit=crop'
-  },
-  {
-    id: 2,
-    title: 'Digital Literacy Workshop Conducted for Faculty',
-    category: 'Workshop',
-    img: 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=2070&auto=format&fit=crop'
-  }
-];
-
 export default function NoticeNews() {
+  const [notices, setNotices] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [showAllNotices, setShowAllNotices] = useState(false);
+
+  useEffect(() => {
+    const fetchNotices = async () => {
+      try {
+        // Same CSV link from hero section
+        const response = await fetch(
+          'https://docs.google.com/spreadsheets/d/e/2PACX-1vQijhk20HEzkeNuvhGcj6kuXxpABwBE4slhR7uRVZk9VkjaErDKBcDPSJ1jR0BfgsENMNCK5gBUtCZw/pub?output=csv'
+        );
+        
+        if (!response.ok) throw new Error('Failed to fetch');
+        
+        const csvText = await response.text();
+        const rows = csvText.trim().split('\n');
+        
+        // Parse CSV - same structure as hero section
+        const formattedNotices = rows.slice(1)
+          .map(row => {
+            const columns = row.split(',');
+            return {
+              id: Math.random(),
+              title: columns[0]?.replace(/^"|"$/g, '').trim() || '',
+              date: columns[1]?.replace(/^"|"$/g, '').trim() || '',
+              category: columns[2]?.replace(/^"|"$/g, '').trim() || '',
+              desc: columns[3]?.replace(/^"|"$/g, '').trim() || `Important notice regarding ${columns[0]?.replace(/^"|"$/g, '').trim()}. Please check with the administration for more details.`,
+            };
+          })
+          .filter(notice => notice.title);
+        
+        setNotices(formattedNotices);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching notices:', error);
+        setLoading(false);
+      }
+    };
+    
+    fetchNotices();
+    
+    // Refresh notices every 5 minutes (same as hero section)
+    const interval = setInterval(fetchNotices, 300000);
+    return () => clearInterval(interval);
+  }, []);
+
+  // Get notices to display
+  const displayedNotices = showAllNotices ? notices : notices.slice(0, 3);
+  const hasMoreNotices = notices.length > 3;
+
   return (
     <section id="notice" className="py-24">
       <div className="max-w-7xl mx-auto px-6">
@@ -49,53 +61,95 @@ export default function NoticeNews() {
           {/* Recent Notices */}
           <div className="lg:col-span-2">
             <div className="flex items-center justify-between mb-8">
-              <h2 className="text-4xl font-display font-black tracking-tighter">Latest <span className="text-secondary">Notices</span></h2>
-              <button className="text-xs font-bold text-secondary hover:underline flex items-center gap-1 uppercase tracking-widest">
-                View All Archives <ArrowRight className="w-4 h-4" />
+              <h2 className="text-4xl font-display font-black tracking-tighter">
+                Latest <span className="text-secondary">Notices</span>
+              </h2>
+              <button 
+                onClick={() => setShowAllNotices(!showAllNotices)}
+                className="text-xs font-bold text-secondary hover:underline flex items-center gap-1 uppercase tracking-widest"
+              >
+                {showAllNotices ? 'Show Less' : 'View All Archives'} 
+                {showAllNotices ? <ChevronUp className="w-4 h-4" /> : <ArrowRight className="w-4 h-4" />}
               </button>
             </div>
             
             <div className="space-y-4">
-              {notices.map((notice, i) => (
-                <motion.div
-                  key={notice.id}
-                  initial={{ opacity: 0, x: -30 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.1 }}
-                  viewport={{ once: true }}
-                  className="p-6 rounded-3xl glass border border-white/5 hover:border-secondary/30 transition-all group"
-                >
-                  <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-                    <div className="flex-1">
-                      <div className="flex items-center gap-3 mb-2">
-                        <span className="px-3 py-1 rounded-full bg-secondary/10 text-secondary text-[10px] font-bold uppercase tracking-wider">
-                          {notice.category}
-                        </span>
-                        <div className="flex items-center gap-1 text-slate-500 text-xs font-medium">
-                          <Calendar className="w-3 h-3" /> {notice.date}
+              {loading ? (
+                // Loading skeletons
+                [...Array(3)].map((_, i) => (
+                  <div key={i} className="p-6 rounded-3xl glass border border-white/5 animate-pulse">
+                    <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                      <div className="flex-1">
+                        <div className="flex items-center gap-3 mb-2">
+                          <div className="w-24 h-6 bg-white/10 rounded-full"></div>
+                          <div className="w-32 h-3 bg-white/10 rounded"></div>
                         </div>
+                        <div className="h-6 bg-white/10 rounded w-3/4 mb-2"></div>
+                        <div className="h-4 bg-white/10 rounded w-full"></div>
                       </div>
-                      <h3 className="text-xl font-bold mb-2 group-hover:text-secondary transition-colors">
-                        {notice.title}
-                      </h3>
-                      <p className="text-sm text-slate-400 line-clamp-2 leading-relaxed">
-                        {notice.desc}
-                      </p>
+                      <div className="w-12 h-12 bg-white/10 rounded-2xl"></div>
                     </div>
-                    <button className="p-4 rounded-2xl glass-darker hover:bg-secondary hover:text-white transition-all shadow-xl group-hover:scale-110">
-                      <ExternalLink className="w-5 h-5" />
-                    </button>
                   </div>
-                </motion.div>
-              ))}
+                ))
+              ) : (
+                <>
+                  {displayedNotices.map((notice, i) => (
+                    <motion.div
+                      key={notice.id}
+                      initial={{ opacity: 0, x: -30 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      transition={{ delay: i * 0.1 }}
+                      viewport={{ once: true }}
+                      className="p-6 rounded-3xl glass border border-white/5 hover:border-secondary/30 transition-all group"
+                    >
+                      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                        <div className="flex-1">
+                          <div className="flex items-center gap-3 mb-2">
+                            <span className="px-3 py-1 rounded-full bg-secondary/10 text-secondary text-[10px] font-bold uppercase tracking-wider">
+                              {notice.category || 'Notice'}
+                            </span>
+                            <div className="flex items-center gap-1 text-slate-500 text-xs font-medium">
+                              <Calendar className="w-3 h-3" /> {notice.date}
+                            </div>
+                          </div>
+                          <h3 className="text-xl font-bold mb-2 group-hover:text-secondary transition-colors">
+                            {notice.title}
+                          </h3>
+                          <p className="text-sm text-slate-400 line-clamp-2 leading-relaxed">
+                            {notice.desc}
+                          </p>
+                        </div>
+                        <button className="p-4 rounded-2xl glass-darker hover:bg-secondary hover:text-white transition-all shadow-xl group-hover:scale-110">
+                          <ExternalLink className="w-5 h-5" />
+                        </button>
+                      </div>
+                    </motion.div>
+                  ))}
+
+                  {/* Show More/Less Button for remaining notices */}
+                  {hasMoreNotices && !showAllNotices && (
+                    <motion.button
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      onClick={() => setShowAllNotices(true)}
+                      className="w-full mt-4 py-3 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all duration-300 flex items-center justify-center gap-2 text-cyan-400 text-sm font-medium"
+                    >
+                      <ChevronDown className="w-4 h-4" />
+                      Load More ({notices.length - 3} more)
+                    </motion.button>
+                  )}
+                </>
+              )}
             </div>
           </div>
 
           {/* School News/Blog */}
           <div>
-            <h2 className="text-4xl font-display font-black mb-8 tracking-tighter">Campus <span className="text-secondary">Highlights</span></h2>
+            <h2 className="text-4xl font-display font-black mb-8 tracking-tighter">
+              Campus <span className="text-secondary">Highlights</span>
+            </h2>
             <div className="space-y-6">
-              {ASSETS.news.map((item, i) => (
+              {ASSETS.news?.map((item, i) => (
                 <motion.div
                   key={item.title}
                   initial={{ opacity: 0, y: 30 }}
