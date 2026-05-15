@@ -43,7 +43,17 @@ export default function Footer() {
       
       <div className="mt-16 text-center text-[9px] text-slate-600 uppercase tracking-[0.5em] font-medium border-t border-white/5 pt-8">
         © {new Date().getFullYear()} <span className="text-slate-500">Haraiya Secondary School.</span>
-        <div className="mt-2 text-slate-400">Designed & Developed by Diamond Ghimire</div>
+        <div className="mt-2 text-slate-400">
+  Designed & Developed by{" "}
+  <a 
+    href="https://www.facebook.com/diamondghimire4" 
+    target="_blank" 
+    rel="noopener noreferrer"
+    className="hover:underline"
+  >
+    Diamond Ghimire
+  </a>
+</div>
       </div>
     </footer>
   );
