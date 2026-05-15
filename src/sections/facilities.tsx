@@ -38,21 +38,24 @@ export default function Facilities() {
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4">
-          {facilities.map((facility, i) => (
-            <motion.div
-              key={facility.name}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.1 }}
-              whileHover={{ y: -10 }}
-              viewport={{ once: true }}
-              className="p-6 rounded-3xl glass text-center group cursor-pointer border border-white/5 hover:border-secondary/30 overflow-hidden relative shadow-lg"
-            >
-              <div className="absolute inset-0 bg-secondary/5 translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
-              <facility.icon className={`w-10 h-10 mx-auto mb-4 relative z-10 ${facility.color}`} />
-              <h3 className="text-xs font-bold tracking-[0.1em] uppercase relative z-10">{facility.name}</h3>
-            </motion.div>
-          ))}
+          {facilities.map((facility, i) => {
+            const IconComponent = facility.icon;
+            return (
+              <motion.div
+                key={facility.name}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.1 }}
+                whileHover={{ y: -10 }}
+                viewport={{ once: true }}
+                className="p-6 rounded-3xl glass text-center group cursor-pointer border border-white/5 hover:border-secondary/30 overflow-hidden relative shadow-lg"
+              >
+                <div className="absolute inset-0 bg-secondary/5 translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
+                <IconComponent className={`w-10 h-10 mx-auto mb-4 relative z-10 ${facility.color}`} />
+                <h3 className="text-xs font-bold tracking-[0.1em] uppercase relative z-10">{facility.name}</h3>
+              </motion.div>
+            );
+          })}
         </div>
 
         {/* Feature showcase */}
@@ -86,8 +89,8 @@ export default function Facilities() {
             
             <div className="h-96 rounded-[32px] overflow-hidden relative shadow-2xl">
               <img 
-                src={classroom}
-                alt="classroom" 
+                src={ASSETS.classroom}
+                alt="Classroom" 
                 className="w-full h-full object-cover"
                 loading="lazy"
               />
