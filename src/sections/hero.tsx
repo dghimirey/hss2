@@ -271,7 +271,7 @@ export default function Hero() {
                       ) : (
                         <>
                           <ChevronDown className="w-4 h-4" />
-                          Show More ({notices.length - 4} more)
+                          Show More ({notices.length - 3} more)
                         </>
                       )}
                     </button>
