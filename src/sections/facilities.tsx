@@ -1,5 +1,6 @@
 import { motion } from 'motion/react';
 import { Library, FlaskConical, Laptop, Trophy, MonitorPlay, Users2, HeartPulse } from 'lucide-react';
+import { classroom } from '@/lib/assets';
 
 const facilities = [
   { name: 'Library', icon: Library, color: 'text-blue-400' },
@@ -29,7 +30,10 @@ export default function Facilities() {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             className="text-slate-400 max-w-2xl mx-auto"
-          >Haraiya Secondary School has well-equipped buildings with CCTV cameras and projector-connected classrooms. The school also has a large playground and enough open space to support both quality learning and creative activities for students.
+          >
+            Haraiya Secondary School has well-equipped buildings with CCTV cameras and projector-connected classrooms. 
+            The school also has a large playground and enough open space to support both quality learning and creative 
+            activities for students.
           </motion.p>
         </div>
 
@@ -59,34 +63,35 @@ export default function Facilities() {
             <div>
               <h3 className="text-3xl font-display font-bold mb-6">Well equipped Classrooms</h3>
               <p className="text-slate-400 mb-8 leading-relaxed">
-                Every classroom is designed to support modern and effective learning. Classrooms are equipped with comfortable desk benches, a podium, CCTV for safety, whiteboards, and student-friendly furniture to create an active and engaging learning environment.
-
+                Every classroom is designed to support modern and effective learning. Classrooms are equipped with 
+                comfortable desk benches, a podium, CCTV for safety, whiteboards, and student-friendly furniture to 
+                create an active and engaging learning environment.
               </p>
               <div className="space-y-4">
                 {[
-                  'cctv-equipped classrooms and school premises',
-'quality whiteboards and projector-supported technical classes',
-'well-installed fans for a comfortable learning environment',
-'well-equipped computer, biology, physics, and chemistry laboratories'
+                  'CCTV-equipped classrooms and school premises',
+                  'Quality whiteboards and projector-supported technical classes',
+                  'Well-installed fans for a comfortable learning environment',
+                  'Well-equipped computer, biology, physics, and chemistry laboratories'
                 ].map((item) => (
                   <div key={item} className="flex items-center gap-3">
                     <div className="w-5 h-5 rounded-full bg-secondary/20 flex items-center justify-center">
-                       <div className="w-2 h-2 rounded-full bg-secondary" />
+                      <div className="w-2 h-2 rounded-full bg-secondary" />
                     </div>
                     <span className="font-medium text-sm">{item}</span>
                   </div>
                 ))}
               </div>
             </div>
+            
             <div className="h-96 rounded-[32px] overflow-hidden relative shadow-2xl">
               <img 
-                src="https://images.unsplash.com/photo-1541339907198-e08756ebafe3?q=80&w=2070&auto=format&fit=crop" 
-                alt="Modern Hall" 
+                src={classroom}
+                alt="classroom" 
                 className="w-full h-full object-cover"
-                referrerPolicy="no-referrer"
                 loading="lazy"
               />
-              <div className="absolute inset-0 bg-linear-to-t from-blue-950/40 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-blue-950/40 to-transparent" />
             </div>
           </div>
         </div>
