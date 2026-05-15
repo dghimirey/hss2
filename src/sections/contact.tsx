@@ -15,14 +15,14 @@ export default function Contact() {
               Let's <span className="text-secondary">Connect</span>
             </h2>
             <p className="text-slate-400 mb-12 leading-relaxed max-w-lg">
-              Have questions or want to visit our campus? We're here to guide you through the admission process or any queries you might have.
+              Have questions or want to visit our school?
             </p>
 
             <div className="space-y-8">
               {[
                 { icon: MapPin, title: 'Our Location', detail: 'Kanchan-4, Haraiya, Rupandehi, Nepal' },
-                { icon: Phone, title: 'Direct Line', detail: '+977-71-123456' },
-                { icon: Mail, title: 'Official Email', detail: 'info@haraiya.edu.np' }
+                { icon: Phone, title: 'Direct Line', detail: '+977-9857024716' },
+                { icon: Mail, title: 'Official Email', detail: 'haraiyasecondary1@gmail.com' }
               ].map((item) => (
                 <div key={item.title} className="flex gap-6 group">
                   <div className="w-14 h-14 rounded-2xl glass flex items-center justify-center text-secondary group-hover:bg-secondary group-hover:text-black transition-all shadow-lg border border-secondary/20">
@@ -39,7 +39,7 @@ export default function Contact() {
             <div className="mt-12">
               <h4 className="font-bold text-xs text-slate-500 uppercase tracking-[0.2em] mb-6">Digital Presence</h4>
               <div className="flex gap-4">
-                {[Facebook, Twitter, Instagram, Youtube].map((Icon, i) => (
+                {[Facebook].map((Icon, i) => (
                   <motion.button
                     key={i}
                     whileHover={{ scale: 1.1, y: -5 }}
@@ -69,7 +69,7 @@ export default function Contact() {
                   <input 
                     type="text" 
                     className="w-full px-6 py-4 rounded-2xl bg-white/5 border border-white/10 focus:outline-none focus:border-secondary/50 text-sm transition-all"
-                    placeholder="John Doe"
+                    placeholder="your name"
                   />
                 </div>
                 <div className="space-y-2">
@@ -77,7 +77,7 @@ export default function Contact() {
                   <input 
                     type="email" 
                     className="w-full px-6 py-4 rounded-2xl bg-white/5 border border-white/10 focus:outline-none focus:border-secondary/50 text-sm transition-all"
-                    placeholder="john@example.com"
+                    placeholder="your email address"
                   />
                 </div>
               </div>
