@@ -80,8 +80,8 @@ export default function Hero() {
   }, []);
 
   // Get notices to display based on showAllNotices state
-  const displayedNotices = showAllNotices ? notices : notices.slice(0, 4);
-  const hasMoreNotices = notices.length > 4;
+  const displayedNotices = showAllNotices ? notices : notices.slice(0, 3);
+  const hasMoreNotices = notices.length > 3;
 
   return (
     <section
