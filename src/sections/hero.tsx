@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import {
   ArrowRight,
@@ -31,25 +31,49 @@ const stats = [
   },
 ];
 
-const notices = [
-  {
-    title: 'Admission Open for ECD to Grade 10',
-    date: 'Baisakh 15, 2083',
-    tag: 'Admission',
-  },
-  {
-    title: 'Entrance exams for new comers',
-    date: 'Baisahk 25, 2083',
-    tag: 'Entrance exam',
-  },
-  {
-    title: 'Congratulations for SEE graded students',
-    date: 'Baisakh 28, 2083',
-    tag: 'Result',
-  },
-];
-
 export default function Hero() {
+  const [notices, setNotices] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchNotices = async () => {
+      try {
+        // IMPORTANT: Replace with your actual published CSV link
+        const response = await fetch(
+          'https://docs.google.com/spreadsheets/d/e/2PACX-1vQijhk20HEzkeNuvhGcj6kuXxpABwBE4slhR7uRVZk9VkjaErDKBcDPSJ1jR0BfgsENMNCK5gBUtCZw/pub?output=csv'
+        );
+        
+        if (!response.ok) throw new Error('Failed to fetch');
+        
+        const csvText = await response.text();
+        const rows = csvText.trim().split('\n');
+        
+        // Skip header row and map data
+        const formattedNotices = rows.slice(1).map(row => {
+          // Simple CSV parsing (works for basic text without commas)
+          const columns = row.split(',');
+          return {
+            title: columns[0]?.replace(/^"|"$/g, '').trim() || '',
+            date: columns[1]?.replace(/^"|"$/g, '').trim() || '',
+            tag: columns[2]?.replace(/^"|"$/g, '').trim() || '',
+          };
+        }).filter(notice => notice.title); // Remove empty rows
+        
+        setNotices(formattedNotices);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching notices:', error);
+        setLoading(false);
+      }
+    };
+    
+    fetchNotices();
+    
+    // Refresh notices every 5 minutes
+    const interval = setInterval(fetchNotices, 300000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <section
       id="home"
@@ -62,9 +86,7 @@ export default function Hero() {
           alt="School"
           className="w-full h-full object-cover opacity-80"
         />
-
         <div className="absolute inset-0 bg-slate-950/85" />
-
         <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 via-transparent to-blue-500/10" />
       </div>
 
@@ -81,7 +103,6 @@ export default function Hero() {
           {/* Badge */}
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm mb-8">
             <div className="w-2 h-2 rounded-full bg-cyan-400" />
-
             <span className="text-xs tracking-wider uppercase text-slate-300 font-medium">
               Established 2024 BS
             </span>
@@ -92,9 +113,7 @@ export default function Hero() {
             <span className="bg-gradient-to-r from-white to-cyan-300 bg-clip-text text-transparent">
               हरैया माध्यमिक
             </span>
-
             <br />
-
             <span className="text-cyan-400">
               विद्यालय
             </span>
@@ -103,7 +122,6 @@ export default function Hero() {
           {/* Location */}
           <div className="flex items-center justify-center lg:justify-start gap-2 text-slate-400 mb-6">
             <MapPin className="w-4 h-4 text-cyan-400" />
-
             <span className="text-base md:text-lg">
               कञ्चन -३, रुपन्देही, नेपाल
             </span>
@@ -147,22 +165,16 @@ export default function Hero() {
           <div className="grid grid-cols-3 gap-6 mt-16 pt-10 border-t border-white/10">
             {stats.map((stat) => {
               const Icon = stat.icon;
-
               return (
-                <div
-                  key={stat.label}
-                  className="text-center lg:text-left"
-                >
+                <div key={stat.label} className="text-center lg:text-left">
                   <div className="flex items-center justify-center lg:justify-start mb-3">
                     <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center">
                       <Icon className="w-5 h-5 text-cyan-400" />
                     </div>
                   </div>
-
                   <h3 className="text-2xl md:text-3xl font-bold text-white mb-1">
                     {stat.value}
                   </h3>
-
                   <p className="text-sm text-slate-400">
                     {stat.label}
                   </p>
@@ -187,18 +199,15 @@ export default function Hero() {
                 <div className="w-11 h-11 rounded-xl bg-cyan-500/10 flex items-center justify-center border border-cyan-400/20">
                   <Bell className="w-5 h-5 text-cyan-400" />
                 </div>
-
                 <div>
                   <h3 className="text-white font-semibold">
                     Latest Notices
                   </h3>
-
                   <p className="text-sm text-slate-500">
                     School announcements
                   </p>
                 </div>
               </div>
-
               <button className="text-sm text-cyan-400 hover:text-cyan-300 transition">
                 View All
               </button>
@@ -206,27 +215,38 @@ export default function Hero() {
 
             {/* Notice List */}
             <div className="space-y-4">
-              {notices.map((notice, index) => (
-                <div
-                  key={index}
-                  className="p-5 rounded-2xl border border-white/5 bg-white/[0.03] hover:bg-white/[0.05] transition-all duration-300"
-                >
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="text-[11px] uppercase tracking-wider px-2 py-1 rounded-full bg-cyan-500/10 text-cyan-300">
-                      {notice.tag}
-                    </span>
-
-                    <div className="flex items-center gap-1 text-xs text-slate-500">
-                      <Calendar className="w-3 h-3" />
-                      {notice.date}
+              {loading ? (
+                // Loading skeletons
+                [...Array(3)].map((_, i) => (
+                  <div key={i} className="p-5 rounded-2xl border border-white/5 bg-white/[0.03] animate-pulse">
+                    <div className="flex items-center justify-between mb-3">
+                      <div className="w-20 h-5 bg-white/10 rounded-full"></div>
+                      <div className="w-24 h-3 bg-white/10 rounded"></div>
                     </div>
+                    <div className="h-5 bg-white/10 rounded w-3/4"></div>
                   </div>
-
-                  <p className="text-slate-200 font-medium leading-relaxed">
-                    {notice.title}
-                  </p>
-                </div>
-              ))}
+                ))
+              ) : (
+                notices.map((notice, index) => (
+                  <div
+                    key={index}
+                    className="p-5 rounded-2xl border border-white/5 bg-white/[0.03] hover:bg-white/[0.05] transition-all duration-300"
+                  >
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="text-[11px] uppercase tracking-wider px-2 py-1 rounded-full bg-cyan-500/10 text-cyan-300">
+                        {notice.tag}
+                      </span>
+                      <div className="flex items-center gap-1 text-xs text-slate-500">
+                        <Calendar className="w-3 h-3" />
+                        {notice.date}
+                      </div>
+                    </div>
+                    <p className="text-slate-200 font-medium leading-relaxed">
+                      {notice.title}
+                    </p>
+                  </div>
+                ))
+              )}
             </div>
           </div>
         </motion.div>
