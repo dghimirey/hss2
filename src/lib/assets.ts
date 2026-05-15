@@ -65,7 +65,7 @@ export const ASSETS = {
     {
       img: schoolBuilding,
       title: 'School Building',
-      category: 'Campus'
+      category: 'School'
     },
     {
       img: classroom,
