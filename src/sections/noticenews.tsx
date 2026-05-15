@@ -146,7 +146,7 @@ export default function NoticeNews() {
           {/* School News/Blog */}
           <div>
             <h2 className="text-4xl font-display font-black mb-8 tracking-tighter">
-              Campus <span className="text-secondary">Highlights</span>
+              School <span className="text-secondary">Highlights</span>
             </h2>
             <div className="space-y-6">
               {ASSETS.news?.map((item, i) => (
