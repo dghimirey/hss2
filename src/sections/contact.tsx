@@ -180,15 +180,7 @@ export default function Contact() {
            className="mt-24 h-[450px] rounded-[48px] overflow-hidden glass border border-white/5 shadow-2xl p-3"
         >
           <div className="w-full h-full rounded-[38px] overflow-hidden opacity-80 hover:opacity-100 transition-opacity border border-white/10 shadow-inner">
-            <iframe 
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d113032.41320349887!2d83.3134371!3d27.6534947!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x399691ab1a1a1a1b%3A0x1a1a1a1a1a1a1a!2sHaraiya%2C%20Kanchan%204!5e0!3m2!1sen!2snp!4v1715478423456!5m2!1sen!2snp" 
-              width="100%" 
-              height="100%" 
-              style={{ border: 0 }} 
-              allowFullScreen 
-              loading="lazy" 
-              referrerPolicy="no-referrer-when-downgrade"
-            />
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3535.892054228845!2d83.24642837524968!3d27.596876076246055!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3996f2ca9e15d0cd%3A0xad7656cde60505bc!2sShree%20Haraiya%20Higher%20Secondary%20School!5e0!3m2!1sne!2snp!4v1778806146272!5m2!1sne!2snp" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
           </div>
         </motion.div>
       </div>
