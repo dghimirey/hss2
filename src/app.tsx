@@ -1,8 +1,3 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import { lazy, Suspense } from 'react';
 import Navbar from './components/navbar';
 import Footer from './components/footer';
